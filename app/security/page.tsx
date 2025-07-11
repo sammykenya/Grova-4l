@@ -387,7 +387,7 @@ export default function SecurityPage() {
               >
                 <CardHeader className="pb-3">
                   <div className="w-12 h-12 bg-blue-500 rounded-xl neomorphism flex items-center justify-center mx-auto mb-3">
-                    <standard.icon className="text-white" />
+                    {React.cloneElement(standard.icon, { className: "text-white" })}
                   </div>
                   <CardTitle className="text-lg font-bold text-gray-900">{standard.title}</CardTitle>
                 </CardHeader>

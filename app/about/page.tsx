@@ -80,22 +80,22 @@ export default function AboutPage() {
 
   const milestones = [
     {
-      year: "2023",
+      year: "2025",
       title: "Grova Founded",
       description: "Established with a vision to transform African financial services",
     },
     {
-      year: "2024",
+      year: "2025",
       title: "Technology Development",
       description: "Developed revolutionary offline-first technology and AI financial coaching",
     },
     {
-      year: "2024",
+      year: "2026",
       title: "Banking Partnerships",
       description: "Secured partnerships with major African banks and financial institutions",
     },
     {
-      year: "2025",
+      year: "2027",
       title: "Continental Launch",
       description: "Launching across all 54 African countries with comprehensive services",
     },
