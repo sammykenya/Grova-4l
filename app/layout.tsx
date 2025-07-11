@@ -10,11 +10,11 @@ const lato = Lato({
   variable: "--font-lato",
 })
 
+// Local font — path is relative to this file (app/layout.tsx)
 const lufga = localFont({
   src: [
     {
-      // note the leading / because it’s inside /public
-      path: "/fonts/Lufga-Bold.woff2",
+      path: "./fonts/Lufga-Bold.woff2", // Path relative to app/layout.tsx
       weight: "700",
       style: "normal",
     },
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description: "Revolutionary financial super-app for Africa",
     type: "website",
   },
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
