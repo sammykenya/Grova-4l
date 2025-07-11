@@ -1,19 +1,24 @@
 "use client"
-
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import {
   ArrowLeft,
-  Wallet,
+  Users,
+  Globe,
   Heart,
-  CheckCircle,
-  Download,
-  Accessibility,
-  Volume2,
+  Shield,
+  Zap,
   Award,
-  Lightbulb,
-  Handshake,
+  CheckCircle,
+  TrendingUp,
+  Building2,
+  Download,
+  Mail,
+  Phone,
+  MapPin,
+  Rocket,
+  Brain,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -21,200 +26,195 @@ import { Badge } from "@/components/ui/badge"
 
 export default function AboutPage() {
   const [notification, setNotification] = useState("")
-  const [isVoiceEnabled, setIsVoiceEnabled] = useState(false)
-  const [isSpeaking, setIsSpeaking] = useState(false)
 
-  const speak = (text: string) => {
-    if ("speechSynthesis" in window) {
-      setIsSpeaking(true)
-      const utterance = new SpeechSynthesisUtterance(text)
-      utterance.rate = 0.8
-      utterance.onend = () => setIsSpeaking(false)
-      speechSynthesis.speak(utterance)
-    }
+  const handleDownload = (platform: string) => {
+    setNotification(`Redirecting to ${platform} store...`)
+    setTimeout(() => setNotification(""), 3000)
   }
 
-  const toggleVoiceAssistant = () => {
-    setIsVoiceEnabled(!isVoiceEnabled)
-    if (!isVoiceEnabled) {
-      speak(
-        "Voice assistant activated on About page. Learn about Grova's mission to transform financial services across Africa and our commitment to financial inclusion.",
-      )
-    }
+  const handleContactSubmit = () => {
+    setNotification("Thank you! We'll get back to you soon.")
+    setTimeout(() => setNotification(""), 3000)
   }
 
+  // Company values
   const values = [
     {
-      icon: <Heart className="h-8 w-8" />,
-      title: "Financial Inclusion for All",
-      description:
-        "We believe every African deserves access to comprehensive financial services, regardless of location, income level, or background",
-      background: "bg-blue-500",
-      textColor: "text-white",
+      icon: <Heart className="h-6 w-6" />,
+      title: "Financial Inclusion",
+      description: "Making financial services accessible to every African, regardless of location or economic status",
+      color: "bg-red-500",
     },
     {
-      icon: <Lightbulb className="h-8 w-8" />,
-      title: "Innovation Through Technology",
-      description:
-        "We leverage cutting-edge technology to solve Africa's unique financial challenges with revolutionary solutions",
-      background: "bg-orange-500",
-      textColor: "text-black",
+      icon: <Shield className="h-6 w-6" />,
+      title: "Security First",
+      description: "Bank-grade security protecting every transaction and user data with military-grade encryption",
+      color: "bg-blue-500",
     },
     {
-      icon: <Handshake className="h-8 w-8" />,
-      title: "Community-Centered Approach",
-      description:
-        "We build solutions that strengthen communities and support traditional African financial practices like chamas and tontines",
-      background: "bg-blue-500",
-      textColor: "text-white",
+      icon: <Zap className="h-6 w-6" />,
+      title: "Innovation",
+      description: "Pioneering breakthrough technologies like offline-first financial services and AI coaching",
+      color: "bg-yellow-500",
     },
     {
-      icon: <Award className="h-8 w-8" />,
-      title: "Excellence and Security",
-      description:
-        "We maintain the highest standards of security and service quality while making financial services accessible to all",
-      background: "bg-orange-500",
-      textColor: "text-black",
+      icon: <Users className="h-6 w-6" />,
+      title: "Community",
+      description: "Building stronger communities through digital chamas, local investment, and peer-to-peer support",
+      color: "bg-green-500",
+    },
+    {
+      icon: <Globe className="h-6 w-6" />,
+      title: "Pan-African Vision",
+      description: "Connecting all 54 African countries through unified financial infrastructure and services",
+      color: "bg-purple-500",
+    },
+    {
+      icon: <Award className="h-6 w-6" />,
+      title: "Excellence",
+      description: "Delivering world-class financial services that meet the highest international standards",
+      color: "bg-orange-500",
     },
   ]
 
+  // Company milestones
   const milestones = [
     {
       year: "2025",
       title: "Grova Founded",
       description: "Established with a vision to transform African financial services",
+      icon: <Rocket className="h-5 w-5" />,
     },
     {
       year: "2025",
       title: "Technology Development",
       description: "Developed revolutionary offline-first technology and AI financial coaching",
+      icon: <Brain className="h-5 w-5" />,
     },
     {
       year: "2026",
       title: "Banking Partnerships",
       description: "Secured partnerships with major African banks and financial institutions",
+      icon: <Building2 className="h-5 w-5" />,
     },
     {
       year: "2027",
       title: "Continental Launch",
       description: "Launching across all 54 African countries with comprehensive services",
+      icon: <Globe className="h-5 w-5" />,
     },
   ]
 
-  const team = [
-    {
-      name: "Leadership Team",
-      role: "Experienced executives from top financial institutions",
-      description: "Our leadership brings decades of experience from major banks and fintech companies across Africa",
-      image: "/images/office-meeting.jpg",
-    },
-    {
-      name: "Technology Team",
-      role: "World-class engineers and developers",
-      description: "Our technical team includes experts in blockchain, AI, mobile development, and financial systems",
-      image: "/images/coworking-space.jpg",
-    },
-    {
-      name: "Financial Experts",
-      role: "Certified financial advisors and analysts",
-      description: "Our financial team provides expertise in African markets, regulations, and economic conditions",
-      image: "/images/financial-advisor.jpg",
-    },
+  // Impact statistics
+  const impactStats = [
+    { number: "200+", label: "Banking Partners", icon: <Building2 className="h-5 w-5" /> },
+    { number: "54", label: "African Countries", icon: <Globe className="h-5 w-5" /> },
+    { number: "10K+", label: "Active Users", icon: <Users className="h-5 w-5" /> },
+    { number: "$2M+", label: "Transactions Processed", icon: <TrendingUp className="h-5 w-5" /> },
   ]
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Voice Assistant Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          onClick={toggleVoiceAssistant}
-          className={`neomorphism rounded-full w-16 h-16 shadow-2xl transition-all duration-300 ${
-            isVoiceEnabled ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-600 hover:bg-gray-700"
-          } text-white`}
-        >
-          {isSpeaking ? <Volume2 className="h-8 w-8 animate-bounce" /> : <Accessibility className="h-8 w-8" />}
-        </Button>
-      </div>
-
       {/* Notification Toast */}
       {notification && (
         <div className="fixed top-20 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-in-right">
           <div className="flex items-center space-x-2">
-            <CheckCircle className="h-5 w-5" />
-            <span>{notification}</span>
+            <CheckCircle className="h-4 w-4" />
+            <span className="text-sm">{notification}</span>
           </div>
         </div>
       )}
 
       {/* Navigation */}
-      <nav className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 lg:px-8 py-4">
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md shadow-lg">
+        <div className="container mx-auto px-4 lg:px-8 py-3">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-500 rounded-xl neomorphism-inset flex items-center justify-center">
-                <Wallet className="h-4 w-4 text-white" />
+            <Link href="/" className="flex items-center space-x-2 group">
+              <div className="w-8 h-8 bg-blue-500 rounded-xl neomorphism-inset flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Users className="h-4 w-4 text-white" />
               </div>
-              <span className="text-xl font-black text-gray-900" style={{ fontFamily: "Lufga, sans-serif" }}>
+              <span className="text-lg font-black text-gray-900 group-hover:text-blue-600 transition-colors duration-300 font-logo">
                 Grova
               </span>
             </Link>
-            <Card className="neomorphism bg-blue-500 border-0 hover:bg-blue-600 transition-all duration-300">
-              <CardContent className="p-3">
-                <Link href="/" className="flex items-center space-x-2 text-white hover:text-gray-100">
-                  <ArrowLeft className="h-4 w-4" />
-                  <span className="text-sm font-medium">Back to Home</span>
-                </Link>
-              </CardContent>
-            </Card>
+
+            <div className="flex items-center space-x-4">
+              <Link
+                href="/"
+                className="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-300 text-sm"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Home
+              </Link>
+              <Button
+                className="neomorphism bg-blue-500 hover:bg-blue-600 text-white text-sm"
+                onClick={() => handleDownload("Android")}
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download App
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 via-white to-orange-50">
+      <section className="pt-24 pb-16 bg-gradient-to-br from-blue-50 via-white to-orange-50">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12 animate-fade-in-up">
-            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">Our Story</Badge>
-            <h1 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
-              Transforming Africa's
-              <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent">
-                Financial Future
-              </span>
+          <div className="text-center max-w-4xl mx-auto">
+            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">About Grova</Badge>
+            <h1 className="text-3xl lg:text-4xl font-black text-gray-900 mb-6 font-heading">
+              Revolutionizing Finance Across Africa
             </h1>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Grova was born from a simple yet powerful vision: to create a financial platform that serves all of
-              Africa's 1.4 billion people, regardless of their location, income level, or access to traditional banking
-              services. We're building the future of African finance through innovative technology, community-centered
-              solutions, and an unwavering commitment to financial inclusion across all 54 African countries.
+            <p className="text-base text-gray-600 mb-8 leading-relaxed">
+              Grova is more than a fintech company - we're a movement dedicated to achieving complete financial
+              inclusion across Africa's 54 countries. Our revolutionary platform combines cutting-edge technology with
+              deep understanding of African markets to deliver comprehensive financial services that work both online
+              and offline, serving everyone from urban professionals to rural farmers.
             </p>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              {impactStats.map((stat, index) => (
+                <div
+                  key={index}
+                  className="text-center p-4 bg-white rounded-xl neomorphism hover:scale-105 transition-all duration-300"
+                >
+                  <div className="flex justify-center mb-2 text-blue-500">{stat.icon}</div>
+                  <div className="text-xl font-black text-gray-900 font-heading">{stat.number}</div>
+                  <div className="text-xs text-gray-600">{stat.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* Mission & Vision */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center animate-fade-in-up">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <Badge className="mb-4 neomorphism bg-orange-500 text-black text-xs">Our Mission</Badge>
-              <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">
-                Empowering Every African with Financial Freedom
+              <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-xs">
+                Our Mission
+              </Badge>
+              <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
+                Empowering Africa Through Financial Innovation
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
-                Our mission is to democratize financial services across Africa by providing comprehensive, accessible,
-                and innovative financial solutions that work for everyone. We're committed to breaking down barriers
-                that have historically excluded millions of Africans from participating in the formal financial system.
+              <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+                Our mission is to democratize financial services across Africa by providing accessible, secure, and
+                comprehensive financial tools that work seamlessly both online and offline. We believe that every
+                African deserves access to world-class financial services, regardless of their location, income level,
+                or technological infrastructure.
               </p>
               <div className="space-y-4">
                 {[
-                  "Serve all 1.4 billion Africans with comprehensive financial services",
-                  "Bridge the gap between traditional and digital financial systems",
-                  "Support community-based financial practices and local economies",
-                  "Provide world-class security and user experience",
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-gray-600">{item}</span>
+                  "Serve 500M+ unbanked Africans by 2030",
+                  "Connect all 54 African countries through unified financial infrastructure",
+                  "Enable $100B+ in cross-border African trade",
+                  "Create 1M+ jobs through our ecosystem",
+                ].map((goal, index) => (
+                  <div key={index} className="flex items-center space-x-3">
+                    <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">{goal}</span>
                   </div>
                 ))}
               </div>
@@ -222,8 +222,8 @@ export default function AboutPage() {
             <div className="relative">
               <div className="neomorphism-deep bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl p-6">
                 <Image
-                  src="/images/rural-community.jpg"
-                  alt="African community"
+                  src="/images/african-farmer.jpg"
+                  alt="African farmer in traditional clothing working in agricultural fields"
                   width={500}
                   height={400}
                   className="w-full h-auto rounded-2xl shadow-lg"
@@ -234,36 +234,36 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* Company Values */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Our Core Values</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              These fundamental principles guide everything we do at Grova, from product development to customer service
-              to community engagement across Africa.
+          <div className="text-center mb-12">
+            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">Our Values</Badge>
+            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
+              Principles That Guide Everything We Do
+            </h2>
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto">
+              Our values shape every decision we make, from product development to customer service, ensuring that we
+              always prioritize the needs of African communities and the goal of financial inclusion.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {values.map((value, index) => (
               <Card
                 key={index}
-                className={`neomorphism border-0 ${value.background} ${value.textColor} hover:scale-105 transition-all duration-300 animate-fade-in-up`}
-                style={{ animationDelay: `${index * 150}ms` }}
+                className="neomorphism border-0 bg-white hover:scale-105 transition-all duration-300 shadow-xl"
               >
                 <CardHeader className="pb-4">
                   <div
-                    className={`w-16 h-16 ${
-                      value.textColor === "text-white" ? "bg-white/20" : "bg-black/20"
-                    } rounded-2xl flex items-center justify-center mb-4 neomorphism`}
+                    className={`w-12 h-12 ${value.color} rounded-xl flex items-center justify-center mb-4 text-white`}
                   >
                     {value.icon}
                   </div>
-                  <CardTitle className={`text-xl font-black ${value.textColor}`}>{value.title}</CardTitle>
+                  <CardTitle className="text-lg font-black text-gray-900 font-heading">{value.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className={`${value.textColor} text-base opacity-90`}>
+                  <CardDescription className="text-sm text-gray-600 leading-relaxed">
                     {value.description}
                   </CardDescription>
                 </CardContent>
@@ -273,32 +273,96 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Timeline Section */}
+      {/* Leadership Team */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Our Journey</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              From concept to continental launch, here's how we're building the future of African financial services.
+          <div className="text-center mb-12">
+            <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-xs">
+              Leadership Team
+            </Badge>
+            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
+              Experienced Leaders Driving African Innovation
+            </h2>
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto mb-8">
+              Our leadership team combines deep African market expertise with international experience from leading
+              technology and financial companies, ensuring we understand both local needs and global best practices.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="space-y-8">
+            <div className="neomorphism-deep bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl p-6">
+              <Image
+                src="/images/leadership-team.jpg"
+                alt="Diverse leadership team of professionals in modern office setting"
+                width={800}
+                height={500}
+                className="w-full h-auto rounded-2xl shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Technology Team */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">Technology Team</Badge>
+            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
+              World-Class Engineers Building the Future
+            </h2>
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto mb-8">
+              Our technology team consists of brilliant engineers and developers from leading tech companies worldwide,
+              all passionate about using technology to solve Africa's unique challenges and opportunities.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="neomorphism-deep bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl p-6">
+              <Image
+                src="/images/technology-team.jpg"
+                alt="Diverse technology team collaborating around laptop in modern workspace"
+                width={800}
+                height={500}
+                className="w-full h-auto rounded-2xl shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Company Timeline */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-xs">Our Journey</Badge>
+            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
+              Milestones in Our Mission to Transform African Finance
+            </h2>
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto">
+              From our founding to our vision for the future, here are the key milestones that mark our progress toward
+              achieving complete financial inclusion across Africa.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="relative">
+              {/* Timeline line */}
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-orange-500"></div>
+
               {milestones.map((milestone, index) => (
-                <div
-                  key={index}
-                  className="flex items-start space-x-6 animate-fade-in-up"
-                  style={{ animationDelay: `${index * 200}ms` }}
-                >
-                  <div className="flex-shrink-0">
-                    <div className="w-16 h-16 bg-blue-500 rounded-full neomorphism flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">{milestone.year}</span>
-                    </div>
+                <div key={index} className="relative flex items-start mb-8">
+                  <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full neomorphism flex items-center justify-center text-blue-500 relative z-10">
+                    {milestone.icon}
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{milestone.title}</h3>
-                    <p className="text-gray-600">{milestone.description}</p>
+                  <div className="ml-6 flex-1">
+                    <div className="bg-white p-6 rounded-xl neomorphism shadow-lg">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-base font-black text-gray-900 font-heading">{milestone.title}</h3>
+                        <Badge className="bg-blue-100 text-blue-800 text-xs">{milestone.year}</Badge>
+                      </div>
+                      <p className="text-sm text-gray-600">{milestone.description}</p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -307,35 +371,71 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* Contact Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Our Team</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Grova is powered by a diverse team of experts from across Africa and around the world, united by our
-              shared commitment to transforming African financial services.
+          <div className="text-center mb-12">
+            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">Get in Touch</Badge>
+            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
+              Ready to Join the Financial Revolution?
+            </h2>
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto">
+              Whether you're interested in partnerships, investment opportunities, or simply want to learn more about
+              our mission, we'd love to hear from you.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {[
+              {
+                icon: Mail,
+                title: "Email Us",
+                description: "Get in touch for partnerships and inquiries",
+                contact: "sammywinter01@gmail.com",
+                bg: "bg-blue-500",
+                textColor: "text-white",
+              },
+              {
+                icon: Phone,
+                title: "Call Us",
+                description: "Speak directly with our team",
+                contact: "+254711129204",
+                bg: "bg-orange-500",
+                textColor: "text-black",
+              },
+              {
+                icon: MapPin,
+                title: "Visit Us",
+                description: "Our headquarters in Nairobi, Kenya",
+                contact: "Nairobi, Kenya",
+                bg: "bg-blue-500",
+                textColor: "text-white",
+              },
+            ].map((contact, index) => (
               <Card
                 key={index}
-                className="neomorphism border-0 bg-white hover:scale-105 transition-all duration-300 animate-fade-in-up"
-                style={{ animationDelay: `${index * 150}ms` }}
+                className={`neomorphism border-0 ${contact.bg} ${contact.textColor} text-center hover:scale-105 transition-all duration-300 shadow-xl cursor-pointer`}
+                onClick={() => {
+                  if (contact.contact.includes("@")) {
+                    window.location.href = `mailto:${contact.contact}`
+                  } else if (contact.contact.includes("+")) {
+                    window.location.href = `tel:${contact.contact}`
+                  } else {
+                    handleContactSubmit()
+                  }
+                }}
               >
                 <CardContent className="p-6">
-                  <Image
-                    src={member.image || "/placeholder.svg"}
-                    alt={member.name}
-                    width={300}
-                    height={200}
-                    className="w-full h-48 object-cover rounded-lg mb-4"
-                  />
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                  <p className="text-blue-600 font-medium mb-3">{member.role}</p>
-                  <p className="text-gray-600 text-sm">{member.description}</p>
+                  <div
+                    className={`w-12 h-12 ${
+                      contact.textColor === "text-white" ? "bg-white/20" : "bg-black/20"
+                    } rounded-xl neomorphism flex items-center justify-center mx-auto mb-4`}
+                  >
+                    <contact.icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-base font-black mb-2 font-heading">{contact.title}</h3>
+                  <p className={`${contact.textColor} text-xs mb-3 opacity-90`}>{contact.description}</p>
+                  <p className="text-sm font-bold">{contact.contact}</p>
                 </CardContent>
               </Card>
             ))}
@@ -343,57 +443,134 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Impact Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Our Impact Vision</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              We're not just building a financial platform - we're creating a movement that will transform how Africans
-              access, manage, and grow their wealth for generations to come.
-            </p>
+      {/* Final CTA */}
+      <section className="py-16 bg-gradient-to-r from-blue-500 to-orange-500 text-white">
+        <div className="container mx-auto px-4 lg:px-8 text-center">
+          <h2 className="text-2xl lg:text-3xl font-black mb-6 font-heading">
+            Ready to Experience the Future of Finance?
+          </h2>
+          <p className="text-base mb-8 max-w-2xl mx-auto opacity-90">
+            Join thousands of users across Africa who are already transforming their financial lives with Grova's
+            revolutionary platform.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-base font-black"
+              onClick={() => handleDownload("Android")}
+            >
+              <Download className="mr-2 h-5 w-5" />
+              Download for Android
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="neomorphism border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 text-base font-black bg-transparent"
+              onClick={() => handleDownload("iOS")}
+            >
+              <Download className="mr-2 h-5 w-5" />
+              Download for iOS
+            </Button>
           </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { number: "1.4B+", label: "Africans We Aim to Serve" },
-              { number: "54", label: "Countries Across Africa" },
-              { number: "500M+", label: "Unbanked People to Include" },
-              { number: "1M+", label: "Small Businesses to Empower" },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="text-center animate-fade-in-up"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <div className="text-4xl lg:text-5xl font-black mb-3 bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent">
-                  {stat.number}
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-8 h-8 bg-blue-500 rounded-xl neomorphism-inset flex items-center justify-center">
+                  <Users className="h-4 w-4 text-white" />
                 </div>
-                <div className="text-gray-600 font-bold">{stat.label}</div>
+                <span className="text-lg font-black font-logo">Grova</span>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Finance without borders. Revolutionary financial platform designed specifically for Africa's 1.4 billion
+                people.
+              </p>
+            </div>
+
+            {[
+              {
+                title: "Product",
+                links: [
+                  { href: "/features", label: "Features" },
+                  { href: "/security", label: "Security" },
+                  { href: "/solutions", label: "Solutions" },
+                  { href: "#", label: "API" },
+                ],
+              },
+              {
+                title: "Company",
+                links: [
+                  { href: "/about", label: "About" },
+                  { href: "#", label: "Careers" },
+                  { href: "#", label: "Press" },
+                  { href: "/contact", label: "Contact" },
+                ],
+              },
+              {
+                title: "Support",
+                links: [
+                  { href: "#", label: "Help Center" },
+                  { href: "#", label: "Documentation" },
+                  { href: "#", label: "Status" },
+                  { href: "#", label: "Community" },
+                ],
+              },
+            ].map((section, sectionIndex) => (
+              <div key={section.title}>
+                <h3 className="font-black mb-4 text-sm font-heading">{section.title}</h3>
+                <ul className="space-y-2 text-gray-400 text-sm">
+                  {section.links.map((link, linkIndex) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="hover:text-white transition-colors duration-300"
+                        onClick={(e) => {
+                          if (link.href === "#") {
+                            e.preventDefault()
+                            setNotification(`${link.label} page coming soon!`)
+                          }
+                        }}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-500 to-orange-500 text-white">
-        <div className="container mx-auto px-4 lg:px-8 text-center animate-fade-in-up">
-          <h2 className="text-3xl lg:text-4xl font-black mb-4">Join Our Mission</h2>
-          <p className="text-lg mb-6 max-w-2xl mx-auto opacity-90">
-            Be part of the financial revolution that's transforming Africa. Download Grova today and help us build a
-            more inclusive financial future for all Africans.
-          </p>
-          <Button
-            size="lg"
-            className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-base font-semibold"
-            onClick={() => setNotification("Redirecting to app store...")}
-          >
-            <Download className="mr-2 h-5 w-5" />
-            Download Grova App
-          </Button>
+          <div className="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-400 text-xs">
+              © 2025 Grova. All rights reserved - a product by boldstreet partners
+            </p>
+            <div className="flex space-x-4 text-xs text-gray-400 mt-4 md:mt-0">
+              {[
+                { href: "#", label: "Privacy Policy" },
+                { href: "#", label: "Terms of Service" },
+                { href: "#", label: "Cookie Policy" },
+              ].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="hover:text-white transition-colors duration-300"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setNotification(`${link.label} coming soon!`)
+                  }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
-      </section>
+      </footer>
     </div>
   )
 }

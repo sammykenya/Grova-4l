@@ -17,39 +17,16 @@ import {
   Star,
   CheckCircle,
   Globe,
-  PiggyBank,
   BarChart3,
   MessageSquare,
   WifiOff,
-  Banknote,
   PlayCircle,
-  Target,
-  Calculator,
-  Calendar,
-  DollarSign,
-  TrendingDown,
-  Lock,
-  Eye,
-  FileText,
-  Award,
-  Lightbulb,
-  Handshake,
   Bluetooth,
   Zap,
   Mail,
   Phone,
   Clock,
-  Camera,
   Mic,
-  BookOpen,
-  PieChart,
-  Settings,
-  UserCheck,
-  Briefcase,
-  Home,
-  Car,
-  Heart,
-  Leaf,
   ArrowRight,
   Volume2,
   VolumeX,
@@ -103,9 +80,35 @@ export default function GrovaLanding() {
           setIsListening(false)
         }
 
+        recognitionInstance.onerror = (event: any) => {
+          console.error("Speech recognition error:", event.error)
+          setIsListening(false)
+        }
+
         setRecognition(recognitionInstance)
       }
     }
+  }, [])
+
+  // Scroll animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible")
+        }
+      })
+    }, observerOptions)
+
+    const animatedElements = document.querySelectorAll(".fade-in-on-scroll")
+    animatedElements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
   }, [])
 
   // Voice Assistant Functions
@@ -222,13 +225,6 @@ export default function GrovaLanding() {
       speak(`Learning more about ${feature.title}. ${feature.description}`)
     }
   }
-
-  // Animation variants for different elements
-  const fadeInUp = "animate-fade-in-up"
-  const fadeInLeft = "animate-fade-in-left"
-  const fadeInRight = "animate-fade-in-right"
-  const scaleIn = "animate-scale-in"
-  const slideInDown = "animate-slide-in-down"
 
   // Enhanced data arrays with detailed information for learn more functionality
   const revolutionaryFeatures = [
@@ -422,646 +418,6 @@ export default function GrovaLanding() {
     { number: "0.1%", label: "Transaction Fees Pan-Africa" },
   ]
 
-  const completeSolutions = [
-    {
-      icon: <Building2 className="h-10 w-10" />,
-      title: "Comprehensive Banking Integration Across Africa",
-      description:
-        "Seamlessly connect with major African financial institutions, creating the largest financial network on the continent",
-      details: [
-        "Integration with over 200 banks across 54 African countries including KCB, Equity Bank, Standard Bank, First Bank Nigeria, Ecobank, and Absa",
-        "SACCO connectivity covering Police SACCO, Teachers SACCO, Stima SACCO, and over 500 cooperative societies across East Africa",
-        "Microfinance partnerships with Faulu Microfinance, Kenya Women Finance Trust, BRAC Uganda, and 100+ MFIs continent-wide",
-        "Global payment integration with PayPal, Skrill, Western Union, and MoneyGram for international remittances",
-        "Mobile money integration supporting M-Pesa, MTN Mobile Money, Orange Money, Airtel Money, and regional providers",
-      ],
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our banking integration represents the most comprehensive financial connectivity solution ever built for Africa. By partnering with traditional banks, modern fintech companies, SACCOs, and microfinance institutions, we create a unified financial ecosystem that serves everyone from rural farmers to urban professionals.",
-        impact:
-          "This integration eliminates financial fragmentation across Africa, enabling seamless money movement between countries, institutions, and communities. Users can access their funds from any connected institution, transfer money across borders instantly, and manage all their financial relationships from one platform.",
-      },
-      image: "/images/banking-integration.jpg",
-    },
-    {
-      icon: <TrendingUp className="h-10 w-10" />,
-      title: "Pan-African Investment Platform",
-      description:
-        "Complete portfolio management with real-time market data from African stock exchanges and global cryptocurrency markets",
-      details: [
-        "African Stock Exchanges: Nairobi Securities Exchange (NSE), Johannesburg Stock Exchange (JSE), Nigerian Stock Exchange, Ghana Stock Exchange, and 15+ others",
-        "Cryptocurrency trading supporting Bitcoin, Ethereum, Binance Coin, Cardano, Polygon, and 100+ altcoins with advanced portfolio tracking",
-        "Government securities including Treasury Bills and Bonds from Kenya, Nigeria, South Africa, Ghana, and other African nations",
-        "Professional analytics featuring Sharpe ratio, Alpha, Beta calculations, risk assessment, and portfolio optimization tools",
-        "Alternative investments including real estate investment trusts (REITs), commodity trading, and peer-to-peer lending opportunities",
-      ],
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our investment platform democratizes access to wealth-building opportunities across Africa, providing sophisticated tools previously available only to institutional investors. We combine traditional African markets with global opportunities to create diversified investment portfolios.",
-        impact:
-          "This platform enables millions of Africans to participate in wealth creation through accessible investment opportunities, supporting economic growth and individual financial empowerment across the continent.",
-      },
-      image: "/images/investment-platform.jpg",
-    },
-    {
-      icon: <QrCode className="h-10 w-10" />,
-      title: "Universal QR Payment Infrastructure",
-      description:
-        "Revolutionary payment system supporting instant transactions for merchants and individuals across all African markets",
-      details: [
-        "Offline QR code technology enabling payments without internet connectivity using Bluetooth and mesh networks",
-        "Advanced camera integration with AI-powered QR code recognition and fraud detection",
-        "Comprehensive merchant solutions including inventory management, sales analytics, customer loyalty programs, and multi-store management",
-        "Secure payment processing with end-to-end encryption, tokenization, and real-time fraud monitoring",
-        "Cross-border payment capabilities supporting transactions between all African countries with automatic currency conversion",
-      ],
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our QR payment system creates a universal payment infrastructure that works seamlessly across Africa's diverse economic landscape. From street vendors in Lagos to shopping malls in Nairobi, our system provides consistent, secure, and efficient payment processing.",
-        impact:
-          "This infrastructure reduces cash dependency, increases financial transparency, and enables small businesses to access digital payment benefits, driving economic formalization across Africa.",
-      },
-      image: "/images/qr-payment.jpg",
-    },
-    {
-      icon: <Users className="h-10 w-10" />,
-      title: "Founders Investor Room - Africa's Startup Ecosystem",
-      description:
-        "Revolutionary platform connecting African entrepreneurs with investors and enabling community-driven crowdfunding across the continent",
-      details: [
-        "Startup idea submission platform with video pitches, business plan templates, and financial projection tools",
-        "Verified investor network including angel investors, venture capital firms, development finance institutions, and impact investors",
-        "Community crowdfunding enabling ordinary Africans to invest in local startups and businesses",
-        "Comprehensive business planning tools with market research, competitive analysis, and financial modeling capabilities",
-        "Mentorship programs connecting successful entrepreneurs with emerging startups across Africa",
-      ],
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "The Founders Investor Room addresses Africa's startup funding gap by creating a comprehensive ecosystem where entrepreneurs can access capital, mentorship, and market opportunities. This platform democratizes startup funding and enables community participation in economic development.",
-        impact:
-          "By connecting African entrepreneurs with both institutional and community investors, we accelerate innovation, job creation, and economic growth across the continent.",
-      },
-      image: "/images/startup-ecosystem.jpg",
-    },
-    {
-      icon: <PiggyBank className="h-10 w-10" />,
-      title: "Digital Community Treasury - Modern Chama System",
-      description:
-        "Advanced digital savings circles and group banking with transparent tracking, democratic governance, and automated management",
-      details: [
-        "Digital savings circles (chamas) with automated contribution tracking, interest calculations, and payout management",
-        "Group savings goals with milestone tracking, progress visualization, and achievement rewards",
-        "Democratic voting system for fund allocation, investment decisions, and group policy changes",
-        "Real-time transparency with blockchain-based transaction logging and member activity tracking",
-        "Community lending programs with peer-to-peer credit scoring and automated loan processing",
-      ],
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our Digital Community Treasury modernizes traditional African savings practices by bringing chamas and tontines into the digital age. This system maintains the community spirit of traditional savings groups while adding transparency, security, and efficiency.",
-        impact:
-          "This platform strengthens community bonds while providing financial services to millions who lack access to traditional banking, fostering grassroots economic development across Africa.",
-      },
-      image: "/images/community-treasury.jpg",
-    },
-    {
-      icon: <Shield className="h-10 w-10" />,
-      title: "Comprehensive Insurance Services for Africa",
-      description:
-        "Tailored insurance solutions addressing the unique risks and needs of African markets and communities",
-      details: [
-        "Health insurance plans covering medical expenses, hospitalization, and preventive care with partnerships across African healthcare systems",
-        "Agricultural insurance protecting farmers against crop failure, weather risks, and livestock losses with satellite monitoring and AI assessment",
-        "Micro-insurance products designed for low-income populations with affordable premiums and simplified claims processes",
-        "Life and property coverage including home insurance, vehicle insurance, and business protection with competitive rates",
-        "Parametric insurance using weather data and satellite imagery for automatic claim processing and rapid payouts",
-      ],
-      background: "bg-orange-500",
-      textColor: "text-black",
-      badge: "Coming Soon",
-      detailedInfo: {
-        overview:
-          "Our insurance services are specifically designed for African markets, addressing unique risks while remaining affordable and accessible. We use technology to reduce costs and improve claim processing while partnering with local providers.",
-        impact:
-          "These insurance products provide financial protection for millions of Africans, reducing vulnerability to economic shocks and enabling more confident investment in business and personal development.",
-      },
-      image: "/images/insurance-services.jpg",
-    },
-  ]
-
-  const advancedTools = [
-    {
-      icon: <Calculator className="h-8 w-8" />,
-      title: "Advanced Financial Calculator Suite",
-      description:
-        "Comprehensive calculation tools for loan analysis, investment projections, savings planning, and financial decision-making across African markets",
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our financial calculator suite provides sophisticated tools for making informed financial decisions in African contexts. These calculators consider local interest rates, inflation patterns, and economic conditions to provide accurate projections.",
-        features: [
-          "Loan calculators with amortization schedules",
-          "Investment return projections",
-          "Savings goal planning",
-          "Currency conversion tools",
-          "Inflation adjustment calculations",
-        ],
-      },
-    },
-    {
-      icon: <Calendar className="h-8 w-8" />,
-      title: "AI-Powered Budget Planning System",
-      description:
-        "Intelligent monthly budget tracking with smart recommendations, expense categorization, and financial goal alignment for African lifestyles",
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our budget planning system uses artificial intelligence to understand African spending patterns and provide culturally relevant financial advice. The system adapts to local economic conditions and seasonal variations.",
-        features: [
-          "Automated expense categorization",
-          "Smart spending alerts",
-          "Goal-based budgeting",
-          "Seasonal adjustment recommendations",
-          "Family budget coordination",
-        ],
-      },
-    },
-    {
-      icon: <DollarSign className="h-8 w-8" />,
-      title: "Real-Time Currency Exchange Platform",
-      description:
-        "Live exchange rates with smart conversion algorithms, cross-border payment optimization, and multi-currency portfolio management",
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our currency exchange platform provides real-time rates for all African currencies plus major international currencies. Smart algorithms optimize conversion timing and routing to minimize costs.",
-        features: [
-          "Real-time rate monitoring",
-          "Conversion cost optimization",
-          "Rate alert notifications",
-          "Historical rate analysis",
-          "Multi-currency wallets",
-        ],
-      },
-    },
-    {
-      icon: <BarChart3 className="h-8 w-8" />,
-      title: "Comprehensive Crypto Portfolio Tracker",
-      description:
-        "Advanced cryptocurrency portfolio management with market analysis, risk assessment, and automated trading capabilities for African investors",
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our crypto tracker provides professional-grade portfolio management tools specifically designed for African cryptocurrency investors. The platform includes local market analysis and regulatory compliance features.",
-        features: [
-          "Portfolio performance tracking",
-          "Risk analysis tools",
-          "Automated rebalancing",
-          "Tax reporting assistance",
-          "Market sentiment analysis",
-        ],
-      },
-    },
-    {
-      icon: <TrendingDown className="h-8 w-8" />,
-      title: "Intelligent Expense Tracking System",
-      description:
-        "Automated expense categorization with AI-driven spending insights, budget optimization, and financial behavior analysis",
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our expense tracking system uses machine learning to automatically categorize and analyze spending patterns. The system provides insights specific to African economic contexts and spending behaviors.",
-        features: [
-          "Automatic transaction categorization",
-          "Spending pattern analysis",
-          "Budget variance alerts",
-          "Merchant recognition",
-          "Receipt scanning and processing",
-        ],
-      },
-    },
-    {
-      icon: <Award className="h-8 w-8" />,
-      title: "Professional Performance Analytics Dashboard",
-      description:
-        "Institutional-grade financial analytics with Sharpe ratio, Alpha, Beta calculations, and comprehensive portfolio performance metrics",
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our analytics dashboard provides professional-grade financial metrics and performance analysis tools. These tools help users understand their financial performance and make data-driven investment decisions.",
-        features: [
-          "Risk-adjusted return calculations",
-          "Benchmark comparisons",
-          "Performance attribution analysis",
-          "Correlation analysis",
-          "Custom reporting tools",
-        ],
-      },
-    },
-  ]
-
-  const offlineCapabilities = [
-    {
-      icon: <Bluetooth className="h-8 w-8" />,
-      title: "Bluetooth Peer-to-Peer Transfer Technology",
-      description:
-        "Revolutionary direct device-to-device money transfers without internet connectivity, enabling financial transactions in remote African communities",
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our Bluetooth P2P technology enables direct financial transactions between devices without requiring internet connectivity. This breakthrough technology is specifically designed for Africa's connectivity challenges.",
-        features: [
-          "Direct device transfers",
-          "Encrypted transaction data",
-          "Multi-hop relay capabilities",
-          "Automatic synchronization",
-          "Emergency transaction support",
-        ],
-      },
-    },
-    {
-      icon: <Zap className="h-8 w-8" />,
-      title: "Advanced Mesh Network Infrastructure",
-      description:
-        "Create resilient local financial networks in areas with poor connectivity, enabling community-based financial ecosystems across rural Africa",
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our mesh network technology creates self-healing financial networks that operate independently of traditional internet infrastructure. These networks enable entire communities to maintain financial connectivity.",
-        features: [
-          "Self-organizing networks",
-          "Automatic node discovery",
-          "Load balancing",
-          "Network resilience",
-          "Community-wide coverage",
-        ],
-      },
-    },
-    {
-      icon: <Settings className="h-8 w-8" />,
-      title: "Intelligent Transaction Queue Management",
-      description:
-        "Smart transaction queuing with automatic synchronization when connectivity returns, ensuring no financial transaction is ever lost",
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our transaction queue system ensures that all financial operations are preserved and processed even when connectivity is intermittent. The system intelligently manages transaction priority and synchronization.",
-        features: [
-          "Priority-based queuing",
-          "Conflict resolution",
-          "Automatic retry mechanisms",
-          "Data integrity verification",
-          "Bandwidth optimization",
-        ],
-      },
-    },
-    {
-      icon: <Camera className="h-8 w-8" />,
-      title: "Offline QR Code Payment System",
-      description:
-        "Generate and process QR payment codes that function without internet connection, enabling commerce in any location across Africa",
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our offline QR system enables payment processing without internet connectivity. QR codes contain all necessary transaction information and can be processed locally before synchronizing with the network.",
-        features: [
-          "Self-contained QR codes",
-          "Local validation",
-          "Fraud prevention",
-          "Batch processing",
-          "Merchant integration",
-        ],
-      },
-    },
-  ]
-
-  const aiFeatures = [
-    {
-      icon: <Brain className="h-8 w-8" />,
-      title: "Personalized Financial Advisory AI",
-      description:
-        "Context-aware financial guidance specifically tailored for African economic conditions, cultural practices, and individual circumstances",
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our AI advisor understands the unique financial challenges and opportunities in African markets. It provides personalized advice that considers local economic conditions, cultural practices, and individual circumstances.",
-        features: [
-          "Personalized recommendations",
-          "Cultural sensitivity",
-          "Local market analysis",
-          "Risk assessment",
-          "Goal-based planning",
-        ],
-      },
-    },
-    {
-      icon: <Mic className="h-8 w-8" />,
-      title: "Multilingual Voice Interface",
-      description:
-        "Advanced voice commands supporting English, Swahili, Hausa, Yoruba, Amharic, French, and other African languages for universal accessibility",
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our voice interface supports multiple African languages and dialects, making financial services accessible to users regardless of literacy level or language preference.",
-        features: [
-          "Multi-language support",
-          "Dialect recognition",
-          "Voice authentication",
-          "Natural language processing",
-          "Accessibility features",
-        ],
-      },
-    },
-    {
-      icon: <BookOpen className="h-8 w-8" />,
-      title: "Localized Financial Education Platform",
-      description:
-        "Daily financial tips, educational content, and insights specifically designed for African markets and economic conditions",
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our education platform provides financial literacy content tailored to African contexts. The content addresses local financial practices, regulations, and opportunities.",
-        features: [
-          "Localized content",
-          "Interactive lessons",
-          "Progress tracking",
-          "Certification programs",
-          "Community learning",
-        ],
-      },
-    },
-    {
-      icon: <PieChart className="h-8 w-8" />,
-      title: "Advanced Spending Analysis Engine",
-      description:
-        "AI-driven insights into financial behavior patterns with recommendations for optimization and wealth building in African contexts",
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our spending analysis engine uses machine learning to identify patterns and provide actionable insights for financial improvement. The system understands African spending patterns and economic cycles.",
-        features: [
-          "Pattern recognition",
-          "Predictive analytics",
-          "Optimization recommendations",
-          "Behavioral insights",
-          "Goal alignment",
-        ],
-      },
-    },
-  ]
-
-  const securityFeatures = [
-    {
-      icon: <Lock className="h-6 w-6" />,
-      title: "Advanced Blockchain Integration",
-      description:
-        "Transparent transaction logging with immutable records ensuring complete financial transparency and security across all African markets",
-      detailedInfo: {
-        overview:
-          "Our blockchain integration provides immutable transaction records and transparent financial operations. This technology ensures trust and accountability in all financial transactions.",
-        features: [
-          "Immutable records",
-          "Smart contracts",
-          "Decentralized verification",
-          "Audit trails",
-          "Regulatory compliance",
-        ],
-      },
-    },
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Military-Grade End-to-End Encryption",
-      description:
-        "Bank-level security protocols protecting all financial data and transactions with advanced encryption standards used by global financial institutions",
-      detailedInfo: {
-        overview:
-          "Our encryption system uses military-grade security protocols to protect all user data and financial transactions. This ensures that sensitive information remains secure at all times.",
-        features: [
-          "AES-256 encryption",
-          "Key management",
-          "Secure communications",
-          "Data protection",
-          "Privacy preservation",
-        ],
-      },
-    },
-    {
-      icon: <Eye className="h-6 w-6" />,
-      title: "Advanced Biometric Authentication",
-      description:
-        "Multi-modal biometric security including fingerprint, facial recognition, and voice pattern authentication for maximum security and convenience",
-      detailedInfo: {
-        overview:
-          "Our biometric authentication system provides secure and convenient access to financial services. Multiple biometric modalities ensure security while maintaining ease of use.",
-        features: [
-          "Fingerprint recognition",
-          "Facial authentication",
-          "Voice verification",
-          "Behavioral biometrics",
-          "Anti-spoofing protection",
-        ],
-      },
-    },
-    {
-      icon: <FileText className="h-6 w-6" />,
-      title: "Comprehensive Multi-Factor Authentication",
-      description:
-        "Layered security approach with SMS verification, email authentication, and app-based two-factor authentication for complete account protection",
-      detailedInfo: {
-        overview:
-          "Our multi-factor authentication system provides multiple layers of security to protect user accounts. This comprehensive approach ensures that only authorized users can access financial services.",
-        features: [
-          "SMS verification",
-          "Email authentication",
-          "App-based 2FA",
-          "Hardware tokens",
-          "Risk-based authentication",
-        ],
-      },
-    },
-  ]
-
-  const professionalAdvisory = [
-    {
-      icon: <UserCheck className="h-8 w-8" />,
-      title: "Certified Financial Advisors Network",
-      description:
-        "Licensed financial professionals with verified credentials and deep understanding of African markets and economic conditions",
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our network of certified financial advisors includes professionals with deep expertise in African markets. All advisors are thoroughly vetted and certified to provide high-quality financial guidance.",
-        features: [
-          "Professional certification",
-          "Market expertise",
-          "Cultural understanding",
-          "Regulatory compliance",
-          "Continuous education",
-        ],
-      },
-    },
-    {
-      icon: <Calendar className="h-8 w-8" />,
-      title: "Seamless Consultation Booking System",
-      description:
-        "Easy scheduling and payment for advisory sessions with integrated calendar management and automated reminders",
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our booking system makes it easy to schedule and manage financial advisory sessions. The system handles scheduling, payments, and communications automatically.",
-        features: [
-          "Online scheduling",
-          "Payment integration",
-          "Automated reminders",
-          "Session management",
-          "Follow-up tracking",
-        ],
-      },
-    },
-    {
-      icon: <Target className="h-8 w-8" />,
-      title: "Specialized Advisory Matching",
-      description:
-        "Intelligent matching system connecting users with advisors specialized in retirement planning, business development, and investment strategies",
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our matching system uses advanced algorithms to connect users with the most suitable financial advisors based on their specific needs, goals, and circumstances.",
-        features: [
-          "Intelligent matching",
-          "Specialization focus",
-          "Performance tracking",
-          "User feedback",
-          "Continuous improvement",
-        ],
-      },
-    },
-    {
-      icon: <Briefcase className="h-8 w-8" />,
-      title: "Comprehensive Professional Profiles",
-      description:
-        "Detailed advisor profiles with real portraits, credentials, specializations, and client testimonials for informed decision-making",
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our advisor profiles provide comprehensive information to help users make informed decisions about their financial guidance. Profiles include credentials, experience, and client feedback.",
-        features: [
-          "Detailed profiles",
-          "Credential verification",
-          "Client testimonials",
-          "Performance metrics",
-          "Specialization areas",
-        ],
-      },
-    },
-  ]
-
-  const insuranceServices = [
-    {
-      icon: <Heart className="h-6 w-6" />,
-      title: "Comprehensive Health Insurance Coverage",
-      description:
-        "Affordable health insurance plans covering medical expenses, hospitalization, and preventive care across African healthcare systems",
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our health insurance products are designed specifically for African healthcare systems, providing comprehensive coverage at affordable rates with extensive provider networks.",
-        features: [
-          "Medical coverage",
-          "Hospitalization benefits",
-          "Preventive care",
-          "Emergency services",
-          "Specialist consultations",
-        ],
-      },
-    },
-    {
-      icon: <Leaf className="h-6 w-6" />,
-      title: "Advanced Agricultural Insurance Solutions",
-      description:
-        "Innovative crop and livestock insurance using satellite monitoring and AI assessment for rapid claim processing and farmer protection",
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our agricultural insurance uses cutting-edge technology to provide comprehensive protection for farmers. Satellite monitoring and AI assessment enable rapid claim processing and accurate risk assessment.",
-        features: [
-          "Crop protection",
-          "Livestock coverage",
-          "Weather monitoring",
-          "Satellite assessment",
-          "Rapid payouts",
-        ],
-      },
-    },
-    {
-      icon: <Home className="h-6 w-6" />,
-      title: "Property and Asset Protection Insurance",
-      description:
-        "Comprehensive property insurance covering homes, businesses, and personal assets with competitive rates and simplified claims processes",
-      background: "bg-blue-500",
-      textColor: "text-white",
-      detailedInfo: {
-        overview:
-          "Our property insurance provides comprehensive protection for homes, businesses, and personal assets. The system is designed for easy claims processing and competitive pricing.",
-        features: [
-          "Home insurance",
-          "Business protection",
-          "Asset coverage",
-          "Liability protection",
-          "Claims assistance",
-        ],
-      },
-    },
-    {
-      icon: <Car className="h-6 w-6" />,
-      title: "Vehicle and Transportation Insurance",
-      description:
-        "Complete automotive insurance coverage including comprehensive, collision, and liability protection for all vehicle types across Africa",
-      background: "bg-orange-500",
-      textColor: "text-black",
-      detailedInfo: {
-        overview:
-          "Our vehicle insurance provides comprehensive protection for all types of vehicles. The system includes liability, collision, and comprehensive coverage with competitive rates.",
-        features: [
-          "Comprehensive coverage",
-          "Collision protection",
-          "Liability insurance",
-          "Theft protection",
-          "Emergency assistance",
-        ],
-      },
-    },
-  ]
-
   const testimonials = [
     {
       name: "Sarah Kimani",
@@ -1113,87 +469,6 @@ export default function GrovaLanding() {
     },
   ]
 
-  const impactAreas = [
-    {
-      title: "Financial Inclusion Across Africa",
-      description:
-        "Bringing comprehensive banking services to the unbanked populations across all 54 African countries, enabling economic participation for everyone",
-      icon: <Banknote className="h-6 w-6" />,
-      image: "/images/mobile-banking.jpg",
-      detailedInfo: {
-        overview:
-          "Our financial inclusion initiative aims to serve Africa's 1.4 billion people by providing accessible, affordable, and comprehensive financial services. We focus on reaching underserved communities and providing them with the tools they need for economic empowerment.",
-        impact:
-          "By 2030, we aim to provide financial services to 500 million previously unbanked Africans, enabling them to participate fully in the digital economy and build wealth for their families and communities.",
-      },
-    },
-    {
-      title: "Economic Empowerment and Wealth Building",
-      description:
-        "Providing sophisticated tools for wealth building, entrepreneurship, and economic development across African markets and communities",
-      icon: <TrendingUp className="h-6 w-6" />,
-      image: "/images/business-professional.jpg",
-      detailedInfo: {
-        overview:
-          "Our economic empowerment programs provide Africans with the tools, knowledge, and opportunities they need to build wealth and create economic opportunities. This includes investment platforms, business funding, and financial education.",
-        impact:
-          "We're enabling millions of Africans to access investment opportunities, start businesses, and build generational wealth through our comprehensive financial ecosystem.",
-      },
-    },
-    {
-      title: "Community Development and Social Impact",
-      description:
-        "Strengthening local financial networks, supporting community initiatives, and fostering economic cooperation across African communities",
-      icon: <Users className="h-6 w-6" />,
-      image: "/images/rural-community.jpg",
-      detailedInfo: {
-        overview:
-          "Our community development initiatives focus on strengthening local economies and social networks. Through digital chamas, community lending, and local investment opportunities, we're building stronger communities.",
-        impact:
-          "We're supporting over 100,000 community groups and savings circles, enabling collective wealth building and community-driven development projects across Africa.",
-      },
-    },
-    {
-      title: "Agricultural Transformation and Rural Development",
-      description:
-        "Empowering farmers with modern financial tools, agricultural insurance, and market access to transform African agriculture",
-      icon: <Target className="h-6 w-6" />,
-      image: "/images/agriculture.jpg",
-      detailedInfo: {
-        overview:
-          "Our agricultural programs provide farmers with access to credit, insurance, market information, and financial planning tools. We're helping to modernize African agriculture and improve rural livelihoods.",
-        impact:
-          "We're serving over 10 million farmers across Africa, providing them with the financial tools they need to increase productivity, manage risks, and access markets.",
-      },
-    },
-    {
-      title: "Professional Services and Business Growth",
-      description:
-        "Connecting financial advisors with clients nationwide and providing businesses with the tools they need for growth and expansion",
-      icon: <Handshake className="h-6 w-6" />,
-      image: "/images/office-meeting.jpg",
-      detailedInfo: {
-        overview:
-          "Our professional services platform connects certified financial advisors with clients across Africa, while providing businesses with comprehensive financial management tools and growth capital.",
-        impact:
-          "We're supporting over 50,000 financial professionals and enabling them to serve millions of clients across the continent with high-quality financial advice and services.",
-      },
-    },
-    {
-      title: "Small Business Growth and Entrepreneurship",
-      description:
-        "Supporting entrepreneurs and SMEs with funding, financial management tools, and market access to drive economic growth across Africa",
-      icon: <Lightbulb className="h-6 w-6" />,
-      image: "/images/customer-service.jpg",
-      detailedInfo: {
-        overview:
-          "Our small business programs provide entrepreneurs with access to funding, financial management tools, market opportunities, and business development support. We're fostering innovation and job creation across Africa.",
-        impact:
-          "We're supporting over 1 million small businesses and entrepreneurs, helping them access capital, manage finances, and grow their operations across African markets.",
-      },
-    },
-  ]
-
   const faqData = [
     {
       question: "How secure is Grova's financial platform?",
@@ -1213,7 +488,7 @@ export default function GrovaLanding() {
     {
       question: "Which African banks and financial institutions does Grova support?",
       answer:
-        "Grova integrates with over 200 financial institutions across all 54 African countries. This includes major banks like KCB, Equity Bank, Standard Bank, First Bank Nigeria, Ecobank, and Absa. We also connect with hundreds of SACCOs including Police SACCO, Teachers SACCO, and Stima SACCO, plus microfinance institutions like Faulu, Kenya Women Finance Trust, and BRAC. Additionally, we support all major mobile money providers including M-Pesa, MTN Mobile Money, Orange Money, and Airtel Money, as well as global providers like PayPal, Skrill, and Western Union.",
+        "Grova integrates with over 200 financial institutions across all 54 African countries. This includes major banks like KCB, Equity Bank, Standard Bank, First Bank Nigeria, Ecobank, and Absa. We also connect with hundreds of SACCOs including Police SACCO, Teachers SACCO, and Stima SACCO, plus microfinance institutions like Faulu, Kenya Women Finance Trust, and BRAC. Additionally, we support all major mobile money providers including M-Pesa, MTN Mobile Money, Orange Money, Airtel Money, as well as global providers like PayPal, Skrill, and Western Union.",
     },
     {
       question: "How does Grova's AI Financial Coach work for African users?",
@@ -1240,11 +515,11 @@ export default function GrovaLanding() {
   return (
     <div className="min-h-screen bg-gray-50 relative overflow-x-hidden">
       {/* Voice Assistant Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-6 right-6 z-50 animate-fade-in-up animation-delay-1000">
         <Button
           onClick={toggleVoiceAssistant}
-          className={`neomorphism rounded-full w-16 h-16 shadow-2xl transition-all duration-300 ${
-            isVoiceEnabled ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-600 hover:bg-gray-700"
+          className={`neomorphism rounded-full w-16 h-16 shadow-2xl transition-all duration-300 hover-lift ${
+            isVoiceEnabled ? "bg-blue-500 hover:bg-blue-600 animate-glow" : "bg-gray-600 hover:bg-gray-700"
           } text-white`}
           title="Voice Assistant for Accessibility"
         >
@@ -1258,8 +533,8 @@ export default function GrovaLanding() {
         </Button>
 
         {isVoiceEnabled && (
-          <div className="absolute bottom-20 right-0 bg-white rounded-lg p-4 shadow-xl neomorphism min-w-64 animate-fade-in-up">
-            <div className="text-sm font-bold mb-2">Voice Assistant Active</div>
+          <div className="absolute bottom-20 right-0 bg-white rounded-lg p-4 shadow-xl neomorphism min-w-64 animate-slide-in-right">
+            <div className="text-sm font-bold mb-2 font-heading">Voice Assistant Active</div>
             <div className="text-xs text-gray-600 mb-3">
               Say: "download app", "features", "contact", "security", "about", or "read"
             </div>
@@ -1268,15 +543,21 @@ export default function GrovaLanding() {
                 size="sm"
                 onClick={startListening}
                 disabled={isListening}
-                className="neomorphism bg-green-500 hover:bg-green-600 text-white"
+                className="neomorphism bg-green-500 hover:bg-green-600 text-white hover-scale"
               >
                 {isListening ? <MicIcon className="h-4 w-4 animate-pulse" /> : <Mic className="h-4 w-4" />}
               </Button>
-              <Button size="sm" onClick={stopListening} className="neomorphism bg-red-500 hover:bg-red-600 text-white">
+              <Button
+                size="sm"
+                onClick={stopListening}
+                className="neomorphism bg-red-500 hover:bg-red-600 text-white hover-scale"
+              >
                 <VolumeX className="h-4 w-4" />
               </Button>
             </div>
-            {voiceText && <div className="mt-2 text-xs bg-gray-100 p-2 rounded">Heard: "{voiceText}"</div>}
+            {voiceText && (
+              <div className="mt-2 text-xs bg-gray-100 p-2 rounded animate-fade-in">Heard: "{voiceText}"</div>
+            )}
           </div>
         )}
       </div>
@@ -1285,7 +566,7 @@ export default function GrovaLanding() {
       {notification && (
         <div className="fixed top-20 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-in-right">
           <div className="flex items-center space-x-2">
-            <CheckCircle className="h-5 w-5" />
+            <CheckCircle className="h-5 w-5 animate-bounce-gentle" />
             <span>{notification}</span>
           </div>
         </div>
@@ -1293,11 +574,11 @@ export default function GrovaLanding() {
 
       {/* Loading Overlay */}
       {isLoading && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-          <div className="bg-white rounded-2xl p-8 neomorphism animate-pulse">
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center animate-fade-in">
+          <div className="bg-white rounded-2xl p-8 neomorphism animate-scale-in">
             <div className="flex items-center space-x-4">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-              <span className="text-gray-900 font-bold">Preparing download...</span>
+              <span className="text-gray-900 font-bold font-heading">Preparing download...</span>
             </div>
           </div>
         </div>
@@ -1305,9 +586,9 @@ export default function GrovaLanding() {
 
       {/* Learn More Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto neomorphism">
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto neomorphism animate-scale-in">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-black text-gray-900 flex items-center gap-3">
+            <DialogTitle className="text-2xl font-black text-gray-900 flex items-center gap-3 font-heading">
               {selectedFeature?.icon}
               {selectedFeature?.title}
             </DialogTitle>
@@ -1316,18 +597,22 @@ export default function GrovaLanding() {
 
           {selectedFeature?.detailedInfo && (
             <div className="space-y-6 mt-6">
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Overview</h3>
+              <div className="animate-fade-in-up">
+                <h3 className="text-xl font-bold text-gray-900 mb-3 font-heading">Overview</h3>
                 <p className="text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.overview}</p>
               </div>
 
               {selectedFeature.detailedInfo.features && (
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Key Features</h3>
+                <div className="animate-fade-in-up animation-delay-200">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 font-heading">Key Features</h3>
                   <ul className="space-y-2">
                     {selectedFeature.detailedInfo.features.map((feature: string, index: number) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <li
+                        key={index}
+                        className="flex items-start gap-3 animate-fade-in-left"
+                        style={{ animationDelay: `${index * 100}ms` }}
+                      >
+                        <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0 animate-bounce-gentle" />
                         <span className="text-gray-700">{feature}</span>
                       </li>
                     ))}
@@ -1336,12 +621,16 @@ export default function GrovaLanding() {
               )}
 
               {selectedFeature.detailedInfo.benefits && (
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Benefits</h3>
+                <div className="animate-fade-in-up animation-delay-400">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 font-heading">Benefits</h3>
                   <ul className="space-y-2">
                     {selectedFeature.detailedInfo.benefits.map((benefit: string, index: number) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <Star className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0" />
+                      <li
+                        key={index}
+                        className="flex items-start gap-3 animate-fade-in-right"
+                        style={{ animationDelay: `${index * 100}ms` }}
+                      >
+                        <Star className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0 animate-pulse" />
                         <span className="text-gray-700">{benefit}</span>
                       </li>
                     ))}
@@ -1350,25 +639,18 @@ export default function GrovaLanding() {
               )}
 
               {selectedFeature.detailedInfo.technicalSpecs && (
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Technical Specifications</h3>
+                <div className="animate-fade-in-up animation-delay-600">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 font-heading">Technical Specifications</h3>
                   <p className="text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.technicalSpecs}</p>
-                </div>
-              )}
-
-              {selectedFeature.detailedInfo.impact && (
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Impact</h3>
-                  <p className="text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.impact}</p>
                 </div>
               )}
             </div>
           )}
 
-          <div className="flex gap-4 mt-8">
+          <div className="flex gap-4 mt-8 animate-fade-in-up animation-delay-800">
             <Button
               onClick={() => handleDownload("Android")}
-              className="neomorphism bg-blue-500 hover:bg-blue-600 text-white flex-1"
+              className="neomorphism bg-blue-500 hover:bg-blue-600 text-white flex-1 hover-lift btn-animate"
             >
               <Download className="mr-2 h-5 w-5" />
               Download Grova App
@@ -1376,7 +658,7 @@ export default function GrovaLanding() {
             <Button
               variant="outline"
               onClick={() => setIsModalOpen(false)}
-              className="neomorphism border-gray-300 hover:bg-gray-50"
+              className="neomorphism border-gray-300 hover:bg-gray-50 hover-scale"
             >
               Close
             </Button>
@@ -1387,26 +669,23 @@ export default function GrovaLanding() {
       {/* Enhanced Navigation */}
       <nav
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          isScrolled ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-white/95 backdrop-blur-md"
+          isScrolled ? "bg-white/95 backdrop-blur-md shadow-lg animate-slide-in-down" : "bg-white/95 backdrop-blur-md"
         }`}
       >
         <div className="container mx-auto px-4 lg:px-8 py-3">
           <div className="flex items-center justify-between">
             {/* Animated Logo */}
-            <Link href="/" className="flex items-center space-x-2 group">
-              <div className="w-8 h-8 bg-blue-500 rounded-xl neomorphism-inset flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <Link href="/" className="flex items-center space-x-2 group animate-fade-in-left">
+              <div className="w-8 h-8 bg-blue-500 rounded-xl neomorphism-inset flex items-center justify-center group-hover:scale-110 transition-transform duration-300 hover-glow">
                 <Wallet className="h-4 w-4 text-white" />
               </div>
-              <span
-                className="text-xl font-black text-gray-900 group-hover:text-blue-600 transition-colors duration-300"
-                style={{ fontFamily: "Lufga, sans-serif", fontWeight: 700 }}
-              >
+              <span className="text-xl font-black text-gray-900 group-hover:text-blue-600 transition-colors duration-300 font-logo">
                 Grova
               </span>
             </Link>
 
             {/* Desktop Navigation with hover effects */}
-            <div className="hidden md:flex items-center space-x-6">
+            <div className="hidden md:flex items-center space-x-6 animate-fade-in-up animation-delay-200">
               {[
                 { href: "/features", label: "Features" },
                 { href: "/solutions", label: "Solutions" },
@@ -1417,7 +696,7 @@ export default function GrovaLanding() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 text-sm relative group"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 text-sm relative group hover-lift"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {item.label}
@@ -1427,16 +706,16 @@ export default function GrovaLanding() {
             </div>
 
             {/* Desktop CTA with animations */}
-            <div className="hidden md:flex items-center space-x-3">
+            <div className="hidden md:flex items-center space-x-3 animate-fade-in-right animation-delay-400">
               <Button
                 variant="outline"
-                className="neomorphism border-blue-500 text-blue-600 hover:bg-blue-50 bg-white text-sm hover:scale-105 transition-all duration-300"
+                className="neomorphism border-blue-500 text-blue-600 hover:bg-blue-50 bg-white text-sm hover-scale transition-all duration-300"
                 onClick={() => setNotification("Login feature coming soon!")}
               >
                 Login
               </Button>
               <Button
-                className="neomorphism bg-blue-500 hover:bg-blue-600 text-white text-sm hover:scale-105 transition-all duration-300"
+                className="neomorphism bg-blue-500 hover:bg-blue-600 text-white text-sm hover-lift transition-all duration-300 btn-animate"
                 onClick={() => handleDownload("Android")}
               >
                 <Download className="mr-2 h-4 w-4" />
@@ -1446,7 +725,7 @@ export default function GrovaLanding() {
 
             {/* Animated Mobile Menu Button */}
             <button
-              className="md:hidden text-gray-700 hover:text-blue-600 transition-colors duration-300"
+              className="md:hidden text-gray-700 hover:text-blue-600 transition-colors duration-300 hover-rotate"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <div className="relative w-6 h-6">
@@ -1472,7 +751,7 @@ export default function GrovaLanding() {
           {/* Enhanced Mobile Menu */}
           <div
             className={`md:hidden transition-all duration-300 overflow-hidden ${
-              mobileMenuOpen ? "max-h-96 opacity-100 mt-4" : "max-h-0 opacity-0"
+              mobileMenuOpen ? "max-h-96 opacity-100 mt-4 animate-slide-in-down" : "max-h-0 opacity-0"
             }`}
           >
             <div className="p-4 bg-white neomorphism rounded-xl">
@@ -1487,7 +766,7 @@ export default function GrovaLanding() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="text-gray-700 hover:text-blue-600 font-medium text-sm py-2 px-3 rounded-lg hover:bg-blue-50 transition-all duration-300"
+                    className="text-gray-700 hover:text-blue-600 font-medium text-sm py-2 px-3 rounded-lg hover:bg-blue-50 transition-all duration-300 hover-lift animate-fade-in-left"
                     style={{ animationDelay: `${index * 50}ms` }}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -1497,7 +776,7 @@ export default function GrovaLanding() {
                 <hr className="border-gray-200" />
                 <Button
                   variant="outline"
-                  className="neomorphism border-blue-500 text-blue-600 hover:bg-blue-50 w-full bg-white text-sm"
+                  className="neomorphism border-blue-500 text-blue-600 hover:bg-blue-50 w-full bg-white text-sm hover-scale"
                   onClick={() => {
                     setNotification("Login feature coming soon!")
                     setMobileMenuOpen(false)
@@ -1506,7 +785,7 @@ export default function GrovaLanding() {
                   Login
                 </Button>
                 <Button
-                  className="neomorphism bg-blue-500 hover:bg-blue-600 text-white w-full text-sm"
+                  className="neomorphism bg-blue-500 hover:bg-blue-600 text-white w-full text-sm hover-lift btn-animate"
                   onClick={() => {
                     handleDownload("Android")
                     setMobileMenuOpen(false)
@@ -1531,12 +810,12 @@ export default function GrovaLanding() {
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className={`max-w-2xl ${fadeInLeft}`}>
+            <div className="max-w-2xl animate-fade-in-left">
               <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs animate-bounce-gentle">
                 🚀 Revolutionary Financial Super-App for Africa
               </Badge>
 
-              <h1 className="text-4xl lg:text-6xl font-black text-gray-900 mb-4 leading-tight animate-fade-in-up">
+              <h1 className="text-4xl lg:text-6xl font-black text-gray-900 mb-4 leading-tight animate-fade-in-up font-heading">
                 Finance Without
                 <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent animate-gradient">
                   Borders
@@ -1554,7 +833,7 @@ export default function GrovaLanding() {
               <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-fade-in-up animation-delay-400">
                 <Button
                   size="lg"
-                  className="neomorphism bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 text-lg font-bold shadow-2xl transform hover:scale-105 transition-all duration-300 group"
+                  className="neomorphism bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 text-lg font-bold shadow-2xl hover-lift transition-all duration-300 group btn-animate"
                   onClick={() => handleDownload("Android")}
                 >
                   <Download className="mr-3 h-6 w-6 group-hover:animate-bounce" />
@@ -1564,7 +843,7 @@ export default function GrovaLanding() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="neomorphism border-2 border-blue-500 text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg font-bold bg-white transform hover:scale-105 transition-all duration-300 group"
+                  className="neomorphism border-2 border-blue-500 text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg font-bold bg-white hover-scale transition-all duration-300 group"
                   onClick={() => setNotification("Demo video coming soon!")}
                 >
                   <PlayCircle className="mr-3 h-6 w-6 group-hover:animate-pulse" />
@@ -1580,18 +859,18 @@ export default function GrovaLanding() {
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center text-gray-600 bg-white/80 rounded-lg p-3 neomorphism hover:scale-105 transition-all duration-300"
+                    className="flex items-center text-gray-600 bg-white/80 rounded-lg p-3 neomorphism hover-lift transition-all duration-300 card-hover"
                     style={{ animationDelay: `${600 + index * 100}ms` }}
                   >
-                    <item.icon className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
+                    <item.icon className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 animate-pulse" />
                     <span className="font-medium">{item.text}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className={`relative ${fadeInRight}`}>
-              <div className="neomorphism-deep bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-500 animate-float">
+            <div className="relative animate-fade-in-right">
+              <div className="neomorphism-deep bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl p-8 shadow-2xl hover-lift transition-all duration-500 animate-float">
                 <Image
                   src="/images/mobile-banking.jpg"
                   alt="African person using mobile banking"
@@ -1603,13 +882,13 @@ export default function GrovaLanding() {
               </div>
 
               {/* Enhanced Floating elements */}
-              <div className="absolute -top-4 -right-4 bg-white rounded-full p-4 neomorphism shadow-xl animate-bounce-gentle animation-delay-200">
+              <div className="absolute -top-4 -right-4 bg-white rounded-full p-4 neomorphism shadow-xl animate-bounce-gentle animation-delay-200 hover-glow">
                 <Smartphone className="h-8 w-8 text-blue-500" />
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-full p-4 neomorphism shadow-xl animate-pulse animation-delay-400">
+              <div className="absolute -bottom-4 -left-4 bg-white rounded-full p-4 neomorphism shadow-xl animate-pulse animation-delay-400 hover-scale">
                 <Shield className="h-8 w-8 text-orange-500" />
               </div>
-              <div className="absolute top-1/2 -left-6 bg-white rounded-full p-3 neomorphism shadow-xl animate-bounce-gentle animation-delay-600">
+              <div className="absolute top-1/2 -left-6 bg-white rounded-full p-3 neomorphism shadow-xl animate-bounce-gentle animation-delay-600 hover-rotate">
                 <Wallet className="h-6 w-6 text-blue-500" />
               </div>
             </div>
@@ -1622,7 +901,7 @@ export default function GrovaLanding() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-orange-900/20"></div>
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-3xl lg:text-4xl font-black text-white mb-4">
+            <h2 className="text-3xl lg:text-4xl font-black text-white mb-4 font-heading">
               Transforming Africa's Financial Landscape
             </h2>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto">
@@ -1634,10 +913,10 @@ export default function GrovaLanding() {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="text-center transform hover:scale-110 transition-all duration-300 animate-fade-in-up"
+                className="text-center hover-lift transition-all duration-300 animate-fade-in-up fade-in-on-scroll"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
-                <div className="text-4xl lg:text-6xl font-black mb-3 bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent animate-number-count">
+                <div className="text-4xl lg:text-6xl font-black mb-3 bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent animate-number-count font-heading">
                   {stat.number}
                 </div>
                 <div className="text-gray-300 font-bold text-base">{stat.label}</div>
@@ -1647,14 +926,196 @@ export default function GrovaLanding() {
         </div>
       </section>
 
+      {/* New Section: Triple Wallet System */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="max-w-2xl animate-fade-in-left fade-in-on-scroll">
+              <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs animate-bounce-gentle">
+                Triple Wallet System
+              </Badge>
+              <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+                Three Wallets, Infinite Possibilities
+              </h2>
+              <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+                Manage fiat currencies, cryptocurrencies, and community credits all in one place. Seamlessly switch
+                between traditional banking and digital assets.
+              </p>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4 animate-fade-in-up animation-delay-200">
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl neomorphism flex items-center justify-center flex-shrink-0 hover-glow">
+                    <Wallet className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 font-heading">Fiat Wallet</h3>
+                    <p className="text-gray-600">KES, USD, INR with real bank integration</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 animate-fade-in-up animation-delay-400">
+                  <div className="w-12 h-12 bg-orange-500 rounded-xl neomorphism flex items-center justify-center flex-shrink-0 hover-scale">
+                    <QrCode className="h-6 w-6 text-black" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 font-heading">Crypto Wallet</h3>
+                    <p className="text-gray-600">Bitcoin, Ethereum, and stablecoins</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 animate-fade-in-up animation-delay-600">
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl neomorphism flex items-center justify-center flex-shrink-0 hover-rotate">
+                    <Users className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 font-heading">Credits Wallet</h3>
+                    <p className="text-gray-600">Community-backed digital credits</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="relative animate-fade-in-right fade-in-on-scroll">
+              <div className="neomorphism-deep bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl p-8 shadow-2xl hover-lift">
+                <Image
+                  src="/images/pexels-kamoi-5556823.jpg"
+                  alt="Three young people in a workshop discussing"
+                  width={500}
+                  height={600}
+                  className="w-full h-auto rounded-2xl shadow-lg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* New Section: Offline-First Technology */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center lg:grid-flow-col-dense">
+            <div className="lg:col-start-2 animate-fade-in-right fade-in-on-scroll">
+              <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-xs animate-bounce-gentle">
+                Offline-First Technology
+              </Badge>
+              <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+                Banking Without Internet
+              </h2>
+              <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+                Revolutionary offline capabilities ensure financial access even in remote areas. Bluetooth P2P transfers
+                and mesh networks keep you connected.
+              </p>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4 animate-fade-in-up animation-delay-200">
+                  <div className="w-12 h-12 bg-orange-500 rounded-xl neomorphism flex items-center justify-center flex-shrink-0 hover-glow">
+                    <Bluetooth className="h-6 w-6 text-black" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 font-heading">Bluetooth P2P Transfers</h3>
+                    <p className="text-gray-600">Send money directly between devices</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 animate-fade-in-up animation-delay-400">
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl neomorphism flex items-center justify-center flex-shrink-0 hover-scale">
+                    <WifiOff className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 font-heading">Mesh Network Support</h3>
+                    <p className="text-gray-600">Create local financial networks</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 animate-fade-in-up animation-delay-600">
+                  <div className="w-12 h-12 bg-orange-500 rounded-xl neomorphism flex items-center justify-center flex-shrink-0 hover-rotate">
+                    <Zap className="h-6 w-6 text-black" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 font-heading">Transaction Queue</h3>
+                    <p className="text-gray-600">Sync when connectivity returns</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="lg:col-start-1 lg:row-start-1 relative animate-fade-in-left fade-in-on-scroll">
+              <div className="neomorphism-deep bg-gradient-to-br from-orange-500 to-blue-500 rounded-3xl p-8 shadow-2xl hover-lift">
+                <Image
+                  src="/images/pexels-kingzubby-15487172.jpg"
+                  alt="Man and woman in a cornfield"
+                  width={500}
+                  height={600}
+                  className="w-full h-auto rounded-2xl shadow-lg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* New Section: AI-Powered Coach */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="max-w-2xl animate-fade-in-left fade-in-on-scroll">
+              <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs animate-bounce-gentle">
+                AI-Powered Coach
+              </Badge>
+              <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+                Your Personal Financial Coach
+              </h2>
+              <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+                GPT-4 powered AI coach provides personalized financial guidance tailored for developing economies. Voice
+                commands and multilingual support ensure accessibility for all.
+              </p>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4 animate-fade-in-up animation-delay-200">
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl neomorphism flex items-center justify-center flex-shrink-0 hover-glow">
+                    <Brain className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 font-heading">Personalized Advice</h3>
+                    <p className="text-gray-600">Context-aware financial guidance</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 animate-fade-in-up animation-delay-400">
+                  <div className="w-12 h-12 bg-orange-500 rounded-xl neomorphism flex items-center justify-center flex-shrink-0 hover-scale">
+                    <Volume2 className="h-6 w-6 text-black" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 font-heading">Voice Commands</h3>
+                    <p className="text-gray-600">Multilingual voice interface</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 animate-fade-in-up animation-delay-600">
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl neomorphism flex items-center justify-center flex-shrink-0 hover-rotate">
+                    <BarChart3 className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 font-heading">Spending Analysis</h3>
+                    <p className="text-gray-600">AI-driven financial insights</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="relative animate-fade-in-right fade-in-on-scroll">
+              <div className="neomorphism-deep bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl p-8 shadow-2xl hover-lift">
+                <Image
+                  src="/images/pexels-josiah-matthew-145486517-10697799.jpg"
+                  alt="Older man in a field looking at something in his hands"
+                  width={500}
+                  height={600}
+                  className="w-full h-auto rounded-2xl shadow-lg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Enhanced Revolutionary Features */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16 animate-fade-in-up">
-            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-sm">
+          <div className="text-center mb-16 animate-fade-in-up fade-in-on-scroll">
+            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-sm animate-bounce-gentle">
               Revolutionary Technology
             </Badge>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6">Core Revolutionary Features</h2>
+            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+              Core Revolutionary Features
+            </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               Grova combines cutting-edge technology with deep understanding of African financial needs, delivering
               comprehensive solutions that work seamlessly both online and offline across all 54 African countries. Our
@@ -1667,18 +1128,20 @@ export default function GrovaLanding() {
             {revolutionaryFeatures.map((feature, index) => (
               <Card
                 key={index}
-                className={`neomorphism border-0 ${feature.background} ${feature.textColor} hover:scale-105 transition-all duration-300 shadow-xl cursor-pointer group animate-fade-in-up ${feature.delay}`}
+                className={`neomorphism border-0 ${feature.background} ${feature.textColor} hover-lift transition-all duration-300 shadow-xl cursor-pointer group animate-fade-in-up fade-in-on-scroll card-hover ${feature.delay}`}
                 onClick={() => handleLearnMore(feature)}
               >
                 <CardHeader className="pb-4">
                   <div
                     className={`w-16 h-16 ${
                       feature.textColor === "text-white" ? "bg-white/20" : "bg-black/20"
-                    } rounded-2xl flex items-center justify-center mb-4 neomorphism group-hover:scale-110 transition-transform duration-300`}
+                    } rounded-2xl flex items-center justify-center mb-4 neomorphism group-hover:scale-110 transition-transform duration-300 hover-glow`}
                   >
                     {React.cloneElement(feature.icon, { className: "h-8 w-8" })}
                   </div>
-                  <CardTitle className={`text-xl font-black ${feature.textColor} group-hover:animate-pulse`}>
+                  <CardTitle
+                    className={`text-xl font-black ${feature.textColor} group-hover:animate-pulse font-heading`}
+                  >
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
@@ -1697,87 +1160,16 @@ export default function GrovaLanding() {
         </div>
       </section>
 
-      {/* Enhanced Complete Solutions Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16 animate-fade-in-up">
-            <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-sm">
-              Complete Solutions
-            </Badge>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6">Comprehensive Financial Ecosystem</h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              From banking integration across all African countries to investment platforms covering continental
-              markets, from revolutionary payment systems to community-driven funding solutions - Grova provides
-              everything you need for complete financial empowerment in one unified, powerful, and accessible platform
-              designed specifically for Africa's unique needs and opportunities.
-            </p>
-          </div>
-
-          <div className="space-y-16">
-            {completeSolutions.map((solution, index) => (
-              <div
-                key={index}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? "lg:grid-flow-col-dense" : ""} animate-fade-in-up`}
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                <div className={index % 2 === 1 ? "lg:col-start-2" : ""}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <Badge className={`neomorphism ${solution.background} ${solution.textColor} text-xs`}>
-                      {solution.title}
-                    </Badge>
-                    {solution.badge && <Badge className="bg-gray-200 text-gray-700 text-xs">{solution.badge}</Badge>}
-                  </div>
-                  <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">{solution.title}</h2>
-                  <p className="text-lg text-gray-600 mb-6">{solution.description}</p>
-
-                  <div className="space-y-3 mb-6">
-                    {solution.details.map((detail, detailIndex) => (
-                      <div key={detailIndex} className="flex items-start space-x-3">
-                        <div
-                          className={`w-6 h-6 ${solution.background} rounded-lg neomorphism flex items-center justify-center flex-shrink-0 mt-1`}
-                        >
-                          <div
-                            className={`w-2 h-2 ${solution.textColor === "text-white" ? "bg-white" : "bg-black"} rounded-full`}
-                          ></div>
-                        </div>
-                        <p className="text-gray-600 text-sm leading-relaxed">{detail}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <Button
-                    className={`neomorphism ${solution.background} hover:opacity-90 ${solution.textColor}`}
-                    onClick={() => handleLearnMore(solution)}
-                  >
-                    Learn More About This Solution
-                  </Button>
-                </div>
-
-                <div className={index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}>
-                  <div
-                    className={`neomorphism-deep ${solution.background} rounded-3xl p-6 hover:scale-105 transition-all duration-300`}
-                  >
-                    <Image
-                      src={solution.image || "/placeholder.svg"}
-                      alt={solution.title}
-                      width={500}
-                      height={400}
-                      className="w-full h-auto rounded-2xl shadow-lg"
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Enhanced Testimonials with animations */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16 animate-fade-in-up">
-            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-sm">User Stories</Badge>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6">Trusted by Thousands Across Africa</h2>
+          <div className="text-center mb-16 animate-fade-in-up fade-in-on-scroll">
+            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-sm animate-bounce-gentle">
+              User Stories
+            </Badge>
+            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+              Trusted by Thousands Across Africa
+            </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               See how Grova is transforming financial lives across Africa, from small business owners in Nairobi to
               farmers in rural Kenya, from market vendors in Mombasa to entrepreneurs in Eldoret. Our users represent
@@ -1790,7 +1182,7 @@ export default function GrovaLanding() {
             {testimonials.map((testimonial, index) => (
               <Card
                 key={index}
-                className="neomorphism border-0 bg-white hover:scale-105 transition-all duration-300 shadow-xl animate-fade-in-up group cursor-pointer"
+                className="neomorphism border-0 bg-white hover-lift transition-all duration-300 shadow-xl animate-fade-in-up fade-in-on-scroll group cursor-pointer card-hover"
                 style={{ animationDelay: `${index * 150}ms` }}
                 onClick={() => setNotification(`Thanks for reading ${testimonial.name}'s story!`)}
               >
@@ -1814,7 +1206,7 @@ export default function GrovaLanding() {
                       className="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                     <div>
-                      <div className="font-bold text-gray-900 text-base">{testimonial.name}</div>
+                      <div className="font-bold text-gray-900 text-base font-heading">{testimonial.name}</div>
                       <div className="text-sm text-gray-500">{testimonial.role}</div>
                     </div>
                   </div>
@@ -1828,11 +1220,13 @@ export default function GrovaLanding() {
       {/* Enhanced FAQ Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16 animate-fade-in-up">
-            <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-sm">
+          <div className="text-center mb-16 animate-fade-in-up fade-in-on-scroll">
+            <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-sm animate-bounce-gentle">
               Frequently Asked Questions
             </Badge>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6">Everything You Need to Know</h2>
+            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+              Everything You Need to Know
+            </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               Get comprehensive answers to common questions about Grova's revolutionary features, security measures,
               African market coverage, and how our platform is transforming financial services across the continent. Our
@@ -1847,10 +1241,10 @@ export default function GrovaLanding() {
                 <AccordionItem
                   key={index}
                   value={`item-${index}`}
-                  className="neomorphism bg-white rounded-2xl px-8 py-2 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up"
+                  className="neomorphism bg-white rounded-2xl px-8 py-2 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up fade-in-on-scroll hover-lift"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <AccordionTrigger className="text-left font-bold text-gray-900 hover:no-underline text-lg py-6 hover:text-blue-600 transition-colors duration-300">
+                  <AccordionTrigger className="text-left font-bold text-gray-900 hover:no-underline text-lg py-6 hover:text-blue-600 transition-colors duration-300 font-heading">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-600 text-base leading-relaxed pb-6 animate-fade-in">
@@ -1874,7 +1268,7 @@ export default function GrovaLanding() {
           <Badge className="mb-6 neomorphism bg-white/20 text-white border-white/30 text-sm animate-bounce-gentle">
             Ready to Transform Your Financial Life?
           </Badge>
-          <h2 className="text-4xl lg:text-6xl font-black mb-6 leading-tight animate-fade-in-up">
+          <h2 className="text-4xl lg:text-6xl font-black mb-6 leading-tight animate-fade-in-up font-heading">
             Download Grova Today
           </h2>
           <p className="text-xl mb-10 max-w-3xl mx-auto opacity-90 leading-relaxed animate-fade-in-up animation-delay-200">
@@ -1887,7 +1281,7 @@ export default function GrovaLanding() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12 animate-fade-in-up animation-delay-400">
             <Button
               size="lg"
-              className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-10 py-5 text-xl font-black shadow-2xl transform hover:scale-110 transition-all duration-300 group"
+              className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-10 py-5 text-xl font-black shadow-2xl hover-lift transition-all duration-300 group btn-animate"
               onClick={() => handleDownload("Android")}
             >
               <Download className="mr-3 h-7 w-7 group-hover:animate-bounce" />
@@ -1897,7 +1291,7 @@ export default function GrovaLanding() {
             <Button
               size="lg"
               variant="outline"
-              className="neomorphism border-3 border-white text-white hover:bg-white hover:text-blue-600 px-10 py-5 text-xl font-black bg-transparent shadow-2xl transform hover:scale-110 transition-all duration-300 group"
+              className="neomorphism border-3 border-white text-white hover:bg-white hover:text-blue-600 px-10 py-5 text-xl font-black bg-transparent shadow-2xl hover-scale transition-all duration-300 group"
               onClick={() => handleDownload("iOS")}
             >
               <Download className="mr-3 h-7 w-7 group-hover:animate-bounce" />
@@ -1913,11 +1307,11 @@ export default function GrovaLanding() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="flex items-center justify-center text-white/90 bg-white/10 rounded-xl p-4 neomorphism hover:bg-white/20 transition-all duration-300 cursor-pointer"
+                className="flex items-center justify-center text-white/90 bg-white/10 rounded-xl p-4 neomorphism hover:bg-white/20 transition-all duration-300 cursor-pointer hover-lift"
                 style={{ animationDelay: `${600 + index * 100}ms` }}
                 onClick={() => setNotification(`${item.text} - Learn more about this feature!`)}
               >
-                <item.icon className="h-6 w-6 mr-3 flex-shrink-0" />
+                <item.icon className="h-6 w-6 mr-3 flex-shrink-0 animate-pulse" />
                 <span className="font-bold">{item.text}</span>
               </div>
             ))}
@@ -1928,9 +1322,11 @@ export default function GrovaLanding() {
       {/* Enhanced Contact Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16 animate-fade-in-up">
-            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-sm">Get in Touch</Badge>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6">We're Here to Help</h2>
+          <div className="text-center mb-16 animate-fade-in-up fade-in-on-scroll">
+            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-sm animate-bounce-gentle">
+              Get in Touch
+            </Badge>
+            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">We're Here to Help</h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               Have questions about Grova's revolutionary features? Need support with your financial journey? Want to
               partner with us to expand financial inclusion across Africa? Our dedicated team is available 24/7 to
@@ -1967,7 +1363,7 @@ export default function GrovaLanding() {
             ].map((contact, index) => (
               <Card
                 key={index}
-                className={`neomorphism border-0 ${contact.bg} ${contact.textColor} text-center hover:scale-105 transition-all duration-300 shadow-xl cursor-pointer animate-fade-in-up group`}
+                className={`neomorphism border-0 ${contact.bg} ${contact.textColor} text-center hover-lift transition-all duration-300 shadow-xl cursor-pointer animate-fade-in-up fade-in-on-scroll group card-hover`}
                 style={{ animationDelay: `${index * 200}ms` }}
                 onClick={() => {
                   if (contact.contact.includes("@")) {
@@ -1983,11 +1379,11 @@ export default function GrovaLanding() {
                   <div
                     className={`w-16 h-16 ${
                       contact.textColor === "text-white" ? "bg-white/20" : "bg-black/20"
-                    } rounded-2xl neomorphism flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
+                    } rounded-2xl neomorphism flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 hover-glow`}
                   >
                     <contact.icon className="h-8 w-8" />
                   </div>
-                  <h3 className="font-black mb-3 text-xl group-hover:animate-pulse">{contact.title}</h3>
+                  <h3 className="font-black mb-3 text-xl group-hover:animate-pulse font-heading">{contact.title}</h3>
                   <p className={`${contact.textColor} text-base mb-4 opacity-90`}>{contact.description}</p>
                   <p className="font-bold text-lg">{contact.contact}</p>
                 </CardContent>
@@ -2001,15 +1397,12 @@ export default function GrovaLanding() {
       <footer className="bg-gray-900 text-white py-16">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8 mb-12">
-            <div className="animate-fade-in-up">
+            <div className="animate-fade-in-up fade-in-on-scroll">
               <div className="flex items-center space-x-3 mb-6 group cursor-pointer">
-                <div className="w-10 h-10 bg-blue-500 rounded-xl neomorphism-inset flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-10 h-10 bg-blue-500 rounded-xl neomorphism-inset flex items-center justify-center group-hover:scale-110 transition-transform duration-300 hover-glow">
                   <Wallet className="h-5 w-5 text-white" />
                 </div>
-                <span
-                  className="text-2xl font-black group-hover:text-blue-400 transition-colors duration-300"
-                  style={{ fontFamily: "Lufga, sans-serif", fontWeight: 700 }}
-                >
+                <span className="text-2xl font-black group-hover:text-blue-400 transition-colors duration-300 font-logo">
                   Grova
                 </span>
               </div>
@@ -2022,7 +1415,7 @@ export default function GrovaLanding() {
                 {[Globe, MessageSquare].map((Icon, index) => (
                   <div
                     key={index}
-                    className="w-10 h-10 bg-gray-800 rounded-full neomorphism flex items-center justify-center hover:bg-blue-500 transition-all duration-300 cursor-pointer hover:scale-110"
+                    className="w-10 h-10 bg-gray-800 rounded-full neomorphism flex items-center justify-center hover:bg-blue-500 transition-all duration-300 cursor-pointer hover-scale"
                     onClick={() => setNotification("Social media links coming soon!")}
                   >
                     <Icon className="h-5 w-5" />
@@ -2062,16 +1455,16 @@ export default function GrovaLanding() {
             ].map((section, sectionIndex) => (
               <div
                 key={section.title}
-                className="animate-fade-in-up"
+                className="animate-fade-in-up fade-in-on-scroll"
                 style={{ animationDelay: `${sectionIndex * 100}ms` }}
               >
-                <h3 className="font-black mb-4 text-lg">{section.title}</h3>
+                <h3 className="font-black mb-4 text-lg font-heading">{section.title}</h3>
                 <ul className="space-y-3 text-gray-400 text-base">
                   {section.links.map((link, linkIndex) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="hover:text-white transition-colors duration-300 hover:translate-x-1 inline-block"
+                        className="hover:text-white transition-colors duration-300 hover:translate-x-1 inline-block hover-lift"
                         onClick={(e) => {
                           if (link.href === "#") {
                             e.preventDefault()
@@ -2088,7 +1481,7 @@ export default function GrovaLanding() {
             ))}
           </div>
 
-          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center animate-fade-in-up">
+          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center animate-fade-in-up fade-in-on-scroll">
             <p className="text-gray-400 text-sm">
               © 2025 Grova. All rights reserved - a product by boldstreet partners
             </p>
@@ -2101,7 +1494,7 @@ export default function GrovaLanding() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="hover:text-white transition-colors duration-300"
+                  className="hover:text-white transition-colors duration-300 hover-lift"
                   onClick={(e) => {
                     e.preventDefault()
                     setNotification(`${link.label} coming soon!`)
