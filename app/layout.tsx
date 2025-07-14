@@ -13,9 +13,20 @@ const lufga = localFont({
       weight: "700",
       style: "normal",
     },
+    {
+      path: "./fonts/Lufga-Bold.woff",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Lufga-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
   ],
   variable: "--font-lufga",
   display: "swap",
+  fallback: ["Inter", "system-ui", "sans-serif"],
 })
 
 // Google-hosted fonts (self-hosted by Next.js)

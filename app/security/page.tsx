@@ -203,28 +203,28 @@ export default function SecurityPage() {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto neomorphism">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-black text-gray-900 flex items-center gap-3">
+            <DialogTitle className="text-xl font-black text-gray-900 flex items-center gap-3">
               {selectedFeature?.icon}
               {selectedFeature?.title}
             </DialogTitle>
-            <DialogDescription className="text-lg text-gray-600">{selectedFeature?.description}</DialogDescription>
+            <DialogDescription className="text-sm text-gray-600">{selectedFeature?.description}</DialogDescription>
           </DialogHeader>
 
           {selectedFeature?.detailedInfo && (
             <div className="space-y-6 mt-6">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Overview</h3>
-                <p className="text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.overview}</p>
+                <h3 className="text-base font-bold text-gray-900 mb-3">Overview</h3>
+                <p className="text-gray-700 leading-relaxed text-sm">{selectedFeature.detailedInfo.overview}</p>
               </div>
 
               {selectedFeature.details && (
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Security Features</h3>
+                  <h3 className="text-base font-bold text-gray-900 mb-3">Security Features</h3>
                   <ul className="space-y-2">
                     {selectedFeature.details.map((detail: string, index: number) => (
                       <li key={index} className="flex items-start gap-3">
                         <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700">{detail}</span>
+                        <span className="text-gray-700 text-sm">{detail}</span>
                       </li>
                     ))}
                   </ul>
@@ -233,15 +233,15 @@ export default function SecurityPage() {
 
               {selectedFeature.detailedInfo.technicalSpecs && (
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Technical Specifications</h3>
-                  <p className="text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.technicalSpecs}</p>
+                  <h3 className="text-base font-bold text-gray-900 mb-3">Technical Specifications</h3>
+                  <p className="text-gray-700 leading-relaxed text-sm">{selectedFeature.detailedInfo.technicalSpecs}</p>
                 </div>
               )}
 
               {selectedFeature.detailedInfo.impact && (
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Security Impact</h3>
-                  <p className="text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.impact}</p>
+                  <h3 className="text-base font-bold text-gray-900 mb-3">Security Impact</h3>
+                  <p className="text-gray-700 leading-relaxed text-sm">{selectedFeature.detailedInfo.impact}</p>
                 </div>
               )}
             </div>
@@ -249,7 +249,10 @@ export default function SecurityPage() {
 
           <div className="flex gap-4 mt-8">
             <Button
-              onClick={() => setNotification("Redirecting to app store...")}
+              onClick={() => {
+                window.open("https://play.google.com/store/search?q=grova&c=apps", "_blank")
+                setNotification("Redirecting to app store...")
+              }}
               className="neomorphism bg-blue-500 hover:bg-blue-600 text-white flex-1"
             >
               <Download className="mr-2 h-5 w-5" />
@@ -297,13 +300,13 @@ export default function SecurityPage() {
             <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">
               Bank-Grade Security
             </Badge>
-            <h1 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
+            <h1 className="text-2xl lg:text-3xl font-black text-gray-900 mb-4 leading-tight animate-fade-in-up font-heading">
               Uncompromising
-              <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent animate-gradient">
                 Security
               </span>
             </h1>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto">
               Grova employs military-grade security protocols and bank-level protection measures to safeguard your
               financial data and transactions across Africa. Our comprehensive security infrastructure includes advanced
               encryption, biometric authentication, blockchain integration, and multi-layered protection systems that
@@ -327,8 +330,8 @@ export default function SecurityPage() {
                   <Badge className={`mb-4 neomorphism ${feature.background} ${feature.textColor} text-xs`}>
                     {feature.title}
                   </Badge>
-                  <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">{feature.title}</h2>
-                  <p className="text-lg text-gray-600 mb-6">{feature.description}</p>
+                  <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">{feature.title}</h2>
+                  <p className="text-sm text-gray-600 mb-6">{feature.description}</p>
 
                   <div className="space-y-4 mb-6">
                     {feature.details.map((detail, detailIndex) => (
@@ -370,8 +373,8 @@ export default function SecurityPage() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Industry Security Standards</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">Industry Security Standards</h2>
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto">
               Grova meets and exceeds the highest international security standards and regulatory requirements, ensuring
               your financial data is protected by the same protocols used by major global financial institutions and
               government organizations.
@@ -389,7 +392,7 @@ export default function SecurityPage() {
                   <div className="w-12 h-12 bg-blue-500 rounded-xl neomorphism flex items-center justify-center mx-auto mb-3">
                     {React.cloneElement(standard.icon, { className: "text-white" })}
                   </div>
-                  <CardTitle className="text-lg font-bold text-gray-900">{standard.title}</CardTitle>
+                  <CardTitle className="text-base font-bold text-gray-900">{standard.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-gray-600 text-sm">{standard.description}</CardDescription>
@@ -405,10 +408,10 @@ export default function SecurityPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center animate-fade-in-up">
             <div>
-              <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">
+              <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">
                 Trusted by Financial Institutions Across Africa
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-sm text-gray-600 mb-6">
                 Our security infrastructure is trusted by banks, government institutions, and financial service
                 providers across all 54 African countries. We maintain the highest security standards while ensuring
                 accessibility and ease of use for all users, from individual consumers to large enterprises and
@@ -416,7 +419,10 @@ export default function SecurityPage() {
               </p>
               <Button
                 className="neomorphism bg-blue-500 hover:bg-blue-600 text-white"
-                onClick={() => setNotification("Security documentation coming soon!")}
+                onClick={() => {
+                  window.open("https://grova.africa/security-docs", "_blank")
+                  setNotification("Security documentation coming soon!")
+                }}
               >
                 View Security Documentation
               </Button>
@@ -439,16 +445,19 @@ export default function SecurityPage() {
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-blue-500 to-orange-500 text-white">
         <div className="container mx-auto px-4 lg:px-8 text-center animate-fade-in-up">
-          <h2 className="text-3xl lg:text-4xl font-black mb-4">Experience Uncompromising Security</h2>
-          <p className="text-lg mb-6 max-w-2xl mx-auto opacity-90">
+          <h2 className="text-xl lg:text-2xl font-black mb-4">Experience Uncompromising Security</h2>
+          <p className="text-sm mb-6 max-w-2xl mx-auto opacity-90">
             Download Grova today and experience the peace of mind that comes with military-grade security, advanced
             encryption, biometric authentication, and comprehensive protection for all your financial activities across
             Africa.
           </p>
           <Button
             size="lg"
-            className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-base font-semibold"
-            onClick={() => setNotification("Redirecting to secure app download...")}
+            className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-sm font-semibold"
+            onClick={() => {
+              window.open("https://play.google.com/store/search?q=grova&c=apps", "_blank")
+              setNotification("Redirecting to secure app download...")
+            }}
           >
             <Download className="mr-2 h-5 w-5" />
             Download Secure Grova App

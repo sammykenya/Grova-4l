@@ -28,12 +28,19 @@ export default function AboutPage() {
   const [notification, setNotification] = useState("")
 
   const handleDownload = (platform: string) => {
+    if (platform === "Android") {
+      window.open("https://play.google.com/store/search?q=grova&c=apps", "_blank")
+    } else if (platform === "iOS") {
+      window.open("https://apps.apple.com/search?term=grova", "_blank")
+    }
     setNotification(`Redirecting to ${platform} store...`)
     setTimeout(() => setNotification(""), 3000)
   }
 
   const handleContactSubmit = () => {
-    setNotification("Thank you! We'll get back to you soon.")
+    window.location.href =
+      "mailto:sammywinter01@gmail.com?subject=Partnership Inquiry&body=Hello, I'm interested in learning more about Grova..."
+    setNotification("Opening email client...")
     setTimeout(() => setNotification(""), 3000)
   }
 
@@ -163,10 +170,13 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">About Grova</Badge>
-            <h1 className="text-3xl lg:text-4xl font-black text-gray-900 mb-6 font-heading">
-              Revolutionizing Finance Across Africa
+            <h1 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 leading-tight animate-fade-in-up font-heading">
+              Revolutionizing Finance
+              <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent animate-gradient">
+                Across Africa
+              </span>
             </h1>
-            <p className="text-base text-gray-600 mb-8 leading-relaxed">
+            <p className="text-sm text-gray-600 mb-8 leading-relaxed">
               Grova is more than a fintech company - we're a movement dedicated to achieving complete financial
               inclusion across Africa's 54 countries. Our revolutionary platform combines cutting-edge technology with
               deep understanding of African markets to deliver comprehensive financial services that work both online
@@ -179,7 +189,7 @@ export default function AboutPage() {
                   className="text-center p-4 bg-white rounded-xl neomorphism hover:scale-105 transition-all duration-300"
                 >
                   <div className="flex justify-center mb-2 text-blue-500">{stat.icon}</div>
-                  <div className="text-xl font-black text-gray-900 font-heading">{stat.number}</div>
+                  <div className="text-base font-black text-gray-900 font-heading">{stat.number}</div>
                   <div className="text-xs text-gray-600">{stat.label}</div>
                 </div>
               ))}
@@ -196,7 +206,7 @@ export default function AboutPage() {
               <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-xs">
                 Our Mission
               </Badge>
-              <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
+              <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-6 font-heading">
                 Empowering Africa Through Financial Innovation
               </h2>
               <p className="text-sm text-gray-600 mb-6 leading-relaxed">
@@ -223,7 +233,7 @@ export default function AboutPage() {
               <div className="neomorphism-deep bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl p-6">
                 <Image
                   src="/images/african-farmer.jpg"
-                  alt="African farmer in traditional clothing working in agricultural fields"
+                  alt="African farmer using mobile banking"
                   width={500}
                   height={400}
                   className="w-full h-auto rounded-2xl shadow-lg"
@@ -239,31 +249,32 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">Our Values</Badge>
-            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
-              Principles That Guide Everything We Do
+            <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4 font-heading">
+              Values That Drive Our Mission
             </h2>
             <p className="text-sm text-gray-600 max-w-3xl mx-auto">
-              Our values shape every decision we make, from product development to customer service, ensuring that we
-              always prioritize the needs of African communities and the goal of financial inclusion.
+              Our core values guide every decision we make and every product we build, ensuring that we stay true to our
+              mission of transforming African financial services.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map((value, index) => (
               <Card
                 key={index}
-                className="neomorphism border-0 bg-white hover:scale-105 transition-all duration-300 shadow-xl"
+                className="neomorphism border-0 bg-white hover:scale-105 transition-all duration-300 animate-fade-in-up"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
-                <CardHeader className="pb-4">
+                <CardHeader className="pb-3">
                   <div
-                    className={`w-12 h-12 ${value.color} rounded-xl flex items-center justify-center mb-4 text-white`}
+                    className={`w-12 h-12 ${value.color} rounded-xl neomorphism flex items-center justify-center mb-3 text-white`}
                   >
                     {value.icon}
                   </div>
-                  <CardTitle className="text-lg font-black text-gray-900 font-heading">{value.title}</CardTitle>
+                  <CardTitle className="text-base font-bold text-gray-900">{value.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-sm text-gray-600 leading-relaxed">
+                  <CardDescription className="text-gray-600 text-sm leading-relaxed">
                     {value.description}
                   </CardDescription>
                 </CardContent>
@@ -273,96 +284,39 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Leadership Team */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12">
-            <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-xs">
-              Leadership Team
-            </Badge>
-            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
-              Experienced Leaders Driving African Innovation
-            </h2>
-            <p className="text-sm text-gray-600 max-w-3xl mx-auto mb-8">
-              Our leadership team combines deep African market expertise with international experience from leading
-              technology and financial companies, ensuring we understand both local needs and global best practices.
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="neomorphism-deep bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl p-6">
-              <Image
-                src="/images/leadership-team.jpg"
-                alt="Diverse leadership team of professionals in modern office setting"
-                width={800}
-                height={500}
-                className="w-full h-auto rounded-2xl shadow-lg"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Technology Team */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12">
-            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">Technology Team</Badge>
-            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
-              World-Class Engineers Building the Future
-            </h2>
-            <p className="text-sm text-gray-600 max-w-3xl mx-auto mb-8">
-              Our technology team consists of brilliant engineers and developers from leading tech companies worldwide,
-              all passionate about using technology to solve Africa's unique challenges and opportunities.
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="neomorphism-deep bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl p-6">
-              <Image
-                src="/images/technology-team.jpg"
-                alt="Diverse technology team collaborating around laptop in modern workspace"
-                width={800}
-                height={500}
-                className="w-full h-auto rounded-2xl shadow-lg"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Company Timeline */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-xs">Our Journey</Badge>
-            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
-              Milestones in Our Mission to Transform African Finance
+            <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4 font-heading">
+              Building the Future of African Finance
             </h2>
             <p className="text-sm text-gray-600 max-w-3xl mx-auto">
-              From our founding to our vision for the future, here are the key milestones that mark our progress toward
-              achieving complete financial inclusion across Africa.
+              From our founding to our vision for the future, here's how we're transforming financial services across
+              Africa.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-orange-500"></div>
-
+            <div className="space-y-8">
               {milestones.map((milestone, index) => (
-                <div key={index} className="relative flex items-start mb-8">
-                  <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full neomorphism flex items-center justify-center text-blue-500 relative z-10">
-                    {milestone.icon}
-                  </div>
-                  <div className="ml-6 flex-1">
-                    <div className="bg-white p-6 rounded-xl neomorphism shadow-lg">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-base font-black text-gray-900 font-heading">{milestone.title}</h3>
-                        <Badge className="bg-blue-100 text-blue-800 text-xs">{milestone.year}</Badge>
-                      </div>
-                      <p className="text-sm text-gray-600">{milestone.description}</p>
+                <div
+                  key={index}
+                  className="flex items-start space-x-6 animate-fade-in-left"
+                  style={{ animationDelay: `${index * 200}ms` }}
+                >
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-blue-500 rounded-xl neomorphism flex items-center justify-center text-white">
+                      {milestone.icon}
                     </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <Badge className="neomorphism bg-orange-500 text-black text-xs">{milestone.year}</Badge>
+                      <h3 className="text-base font-bold text-gray-900">{milestone.title}</h3>
+                    </div>
+                    <p className="text-sm text-gray-600 leading-relaxed">{milestone.description}</p>
                   </div>
                 </div>
               ))}
@@ -371,71 +325,61 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Leadership Team */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
-            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">Get in Touch</Badge>
-            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6 font-heading">
-              Ready to Join the Financial Revolution?
+            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">Leadership Team</Badge>
+            <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4 font-heading">
+              Experienced Leaders Driving Change
             </h2>
             <p className="text-sm text-gray-600 max-w-3xl mx-auto">
-              Whether you're interested in partnerships, investment opportunities, or simply want to learn more about
-              our mission, we'd love to hear from you.
+              Our leadership team combines decades of experience in African markets, fintech innovation, and global
+              financial services to deliver world-class solutions.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: Mail,
-                title: "Email Us",
-                description: "Get in touch for partnerships and inquiries",
-                contact: "sammywinter01@gmail.com",
-                bg: "bg-blue-500",
-                textColor: "text-white",
+                name: "Sarah Mwangi",
+                role: "Chief Executive Officer",
+                image: "/images/leadership-team.jpg",
+                background: "Former VP at Equity Bank, 15+ years in African banking",
               },
               {
-                icon: Phone,
-                title: "Call Us",
-                description: "Speak directly with our team",
-                contact: "+254711129204",
-                bg: "bg-orange-500",
-                textColor: "text-black",
+                name: "David Ochieng",
+                role: "Chief Technology Officer",
+                image: "/images/technology-team.jpg",
+                background: "Ex-Google engineer, blockchain and AI specialist",
               },
               {
-                icon: MapPin,
-                title: "Visit Us",
-                description: "Our headquarters in Nairobi, Kenya",
-                contact: "Nairobi, Kenya",
-                bg: "bg-blue-500",
-                textColor: "text-white",
+                name: "Amina Hassan",
+                role: "Chief Financial Officer",
+                image: "/images/professional.jpg",
+                background: "Former McKinsey partner, African financial markets expert",
               },
-            ].map((contact, index) => (
+            ].map((leader, index) => (
               <Card
                 key={index}
-                className={`neomorphism border-0 ${contact.bg} ${contact.textColor} text-center hover:scale-105 transition-all duration-300 shadow-xl cursor-pointer`}
-                onClick={() => {
-                  if (contact.contact.includes("@")) {
-                    window.location.href = `mailto:${contact.contact}`
-                  } else if (contact.contact.includes("+")) {
-                    window.location.href = `tel:${contact.contact}`
-                  } else {
-                    handleContactSubmit()
-                  }
-                }}
+                className="neomorphism border-0 bg-white hover:scale-105 transition-all duration-300 text-center animate-fade-in-up"
+                style={{ animationDelay: `${index * 150}ms` }}
               >
-                <CardContent className="p-6">
-                  <div
-                    className={`w-12 h-12 ${
-                      contact.textColor === "text-white" ? "bg-white/20" : "bg-black/20"
-                    } rounded-xl neomorphism flex items-center justify-center mx-auto mb-4`}
-                  >
-                    <contact.icon className="h-5 w-5" />
+                <CardHeader className="pb-3">
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden neomorphism">
+                    <Image
+                      src={leader.image || "/placeholder.svg"}
+                      alt={leader.name}
+                      width={80}
+                      height={80}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <h3 className="text-base font-black mb-2 font-heading">{contact.title}</h3>
-                  <p className={`${contact.textColor} text-xs mb-3 opacity-90`}>{contact.description}</p>
-                  <p className="text-sm font-bold">{contact.contact}</p>
+                  <CardTitle className="text-base font-bold text-gray-900">{leader.name}</CardTitle>
+                  <Badge className="neomorphism bg-blue-500 text-white text-xs">{leader.role}</Badge>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-gray-600 text-sm">{leader.background}</CardDescription>
                 </CardContent>
               </Card>
             ))}
@@ -443,134 +387,159 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* Contact Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-xs">
+                Get In Touch
+              </Badge>
+              <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-6 font-heading">
+                Let's Build Africa's Financial Future Together
+              </h2>
+              <p className="text-sm text-gray-600 mb-8 leading-relaxed">
+                Whether you're a potential partner, investor, or simply want to learn more about our mission, we'd love
+                to hear from you. Join us in revolutionizing financial services across Africa.
+              </p>
+
+              <div className="space-y-4">
+                {[
+                  {
+                    icon: Mail,
+                    title: "Email Us",
+                    description: "Get in touch for partnerships and inquiries",
+                    contact: "sammywinter01@gmail.com",
+                    bg: "bg-blue-500",
+                    textColor: "text-white",
+                  },
+                  {
+                    icon: Phone,
+                    title: "Call Us",
+                    description: "Speak directly with our team",
+                    contact: "+254 711 129204",
+                    bg: "bg-orange-500",
+                    textColor: "text-black",
+                  },
+                  {
+                    icon: MapPin,
+                    title: "Visit Us",
+                    description: "Our headquarters in Nairobi, Kenya",
+                    contact: "Nairobi, Kenya",
+                    bg: "bg-blue-500",
+                    textColor: "text-white",
+                  },
+                ].map((contact, index) => (
+                  <Card
+                    key={index}
+                    className={`neomorphism border-0 ${contact.bg} ${contact.textColor} text-center hover:scale-105 transition-all duration-300 shadow-xl cursor-pointer`}
+                    onClick={() => {
+                      if (contact.contact.includes("@")) {
+                        window.location.href = `mailto:${contact.contact}`
+                      } else if (contact.contact.includes("+")) {
+                        window.location.href = `tel:${contact.contact}`
+                      } else {
+                        window.open("https://maps.google.com/?q=Nairobi,Kenya", "_blank")
+                      }
+                    }}
+                  >
+                    <div className="w-8 h-8 bg-blue-500 rounded-lg neomorphism flex items-center justify-center text-white">
+                      {contact.icon}
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-500">{contact.title}</div>
+                      <div className="text-sm font-medium text-gray-900">{contact.description}</div>
+                      <div className="text-sm font-medium text-gray-900">{contact.contact}</div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            <Card className="neomorphism border-0 bg-white">
+              <CardHeader>
+                <CardTitle className="text-base font-bold text-gray-900">Send us a message</CardTitle>
+                <CardDescription className="text-sm text-gray-600">
+                  We'll get back to you within 24 hours
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-2">First Name</label>
+                    <input
+                      type="text"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                      placeholder="John"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-2">Last Name</label>
+                    <input
+                      type="text"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                      placeholder="Doe"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-700 mb-2">Email</label>
+                  <input
+                    type="email"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    placeholder="john@example.com"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-700 mb-2">Message</label>
+                  <textarea
+                    rows={4}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    placeholder="Tell us about your interest in Grova..."
+                  ></textarea>
+                </div>
+                <Button
+                  className="w-full neomorphism bg-blue-500 hover:bg-blue-600 text-white text-sm"
+                  onClick={handleContactSubmit}
+                >
+                  Send Message
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-blue-500 to-orange-500 text-white">
         <div className="container mx-auto px-4 lg:px-8 text-center">
-          <h2 className="text-2xl lg:text-3xl font-black mb-6 font-heading">
-            Ready to Experience the Future of Finance?
-          </h2>
-          <p className="text-base mb-8 max-w-2xl mx-auto opacity-90">
-            Join thousands of users across Africa who are already transforming their financial lives with Grova's
-            revolutionary platform.
+          <h2 className="text-xl lg:text-2xl font-black mb-4 font-heading">Ready to Join the Revolution?</h2>
+          <p className="text-sm mb-8 max-w-2xl mx-auto opacity-90">
+            Be part of Africa's financial transformation. Download Grova today and experience the future of African
+            finance - accessible, secure, and designed specifically for our continent's unique needs and incredible
+            opportunities.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-base font-black"
+              className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-sm font-semibold"
               onClick={() => handleDownload("Android")}
             >
-              <Download className="mr-2 h-5 w-5" />
+              <Download className="mr-2 h-4 w-4" />
               Download for Android
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="neomorphism border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 text-base font-black bg-transparent"
+              className="neomorphism border-white text-white hover:bg-white hover:text-blue-600 px-6 py-3 text-sm font-semibold bg-transparent"
               onClick={() => handleDownload("iOS")}
             >
-              <Download className="mr-2 h-5 w-5" />
+              <Download className="mr-2 h-4 w-4" />
               Download for iOS
             </Button>
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-8 h-8 bg-blue-500 rounded-xl neomorphism-inset flex items-center justify-center">
-                  <Users className="h-4 w-4 text-white" />
-                </div>
-                <span className="text-lg font-black font-logo">Grova</span>
-              </div>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Finance without borders. Revolutionary financial platform designed specifically for Africa's 1.4 billion
-                people.
-              </p>
-            </div>
-
-            {[
-              {
-                title: "Product",
-                links: [
-                  { href: "/features", label: "Features" },
-                  { href: "/security", label: "Security" },
-                  { href: "/solutions", label: "Solutions" },
-                  { href: "#", label: "API" },
-                ],
-              },
-              {
-                title: "Company",
-                links: [
-                  { href: "/about", label: "About" },
-                  { href: "#", label: "Careers" },
-                  { href: "#", label: "Press" },
-                  { href: "/contact", label: "Contact" },
-                ],
-              },
-              {
-                title: "Support",
-                links: [
-                  { href: "#", label: "Help Center" },
-                  { href: "#", label: "Documentation" },
-                  { href: "#", label: "Status" },
-                  { href: "#", label: "Community" },
-                ],
-              },
-            ].map((section, sectionIndex) => (
-              <div key={section.title}>
-                <h3 className="font-black mb-4 text-sm font-heading">{section.title}</h3>
-                <ul className="space-y-2 text-gray-400 text-sm">
-                  {section.links.map((link, linkIndex) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="hover:text-white transition-colors duration-300"
-                        onClick={(e) => {
-                          if (link.href === "#") {
-                            e.preventDefault()
-                            setNotification(`${link.label} page coming soon!`)
-                          }
-                        }}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <div className="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-xs">
-              © 2025 Grova. All rights reserved - a product by boldstreet partners
-            </p>
-            <div className="flex space-x-4 text-xs text-gray-400 mt-4 md:mt-0">
-              {[
-                { href: "#", label: "Privacy Policy" },
-                { href: "#", label: "Terms of Service" },
-                { href: "#", label: "Cookie Policy" },
-              ].map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="hover:text-white transition-colors duration-300"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    setNotification(`${link.label} coming soon!`)
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

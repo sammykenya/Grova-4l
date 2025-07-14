@@ -379,9 +379,9 @@ export default function FeaturesPage() {
             <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">
               Revolutionary Features
             </Badge>
-            <h1 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
+            <h1 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4 leading-tight animate-fade-in-up font-heading">
               Powerful Features for
-              <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent animate-gradient">
                 Modern Finance
               </span>
             </h1>

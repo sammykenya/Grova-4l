@@ -4,39 +4,42 @@ import type React from "react"
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import {
   ArrowLeft,
   Wallet,
   Mail,
   Phone,
+  MapPin,
+  MessageCircle,
   Clock,
-  MessageSquare,
-  Send,
+  Globe,
   CheckCircle,
+  Send,
   Accessibility,
   Volume2,
-  Globe,
-  Users,
-  Briefcase,
-  Download,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function ContactPage() {
-  const [notification, setNotification] = useState("")
-  const [isVoiceEnabled, setIsVoiceEnabled] = useState(false)
-  const [isSpeaking, setIsSpeaking] = useState(false)
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
+    phone: "",
+    country: "",
     subject: "",
     message: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [notification, setNotification] = useState("")
+  const [isVoiceEnabled, setIsVoiceEnabled] = useState(false)
+  const [isSpeaking, setIsSpeaking] = useState(false)
 
   const speak = (text: string) => {
     if ("speechSynthesis" in window) {
@@ -52,101 +55,155 @@ export default function ContactPage() {
     setIsVoiceEnabled(!isVoiceEnabled)
     if (!isVoiceEnabled) {
       speak(
-        "Voice assistant activated on Contact page. You can reach us at sammywinter01@gmail.com or call +254711129204 for support.",
+        "Voice assistant activated on Contact page. Get in touch with our team through multiple channels including email, phone, and our contact form.",
       )
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setNotification("Thank you for your message! We'll get back to you within 24 hours.")
-    setFormData({ name: "", email: "", subject: "", message: "" })
-    setTimeout(() => setNotification(""), 5000)
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+
+    setNotification("Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.")
     setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      country: "",
+      subject: "",
+      message: "",
     })
+    setIsSubmitting(false)
+
+    if (isVoiceEnabled) {
+      speak("Your message has been sent successfully. We'll get back to you within 24 hours.")
+    }
+
+    setTimeout(() => setNotification(""), 5000)
   }
 
   const contactMethods = [
     {
-      icon: <Mail className="h-8 w-8" />,
+      icon: <Mail className="h-6 w-6" />,
       title: "Email Support",
-      description: "Get comprehensive help via email within 24 hours",
+      description: "Get detailed responses to your questions",
       contact: "sammywinter01@gmail.com",
       action: "Send Email",
-      background: "bg-blue-500",
-      textColor: "text-white",
+      color: "bg-blue-500",
     },
     {
-      icon: <Phone className="h-8 w-8" />,
+      icon: <Phone className="h-6 w-6" />,
       title: "Phone Support",
-      description: "Call us directly for immediate assistance",
-      contact: "+254711129204",
+      description: "Speak directly with our support team",
+      contact: "+254 711 129204",
       action: "Call Now",
-      background: "bg-orange-500",
-      textColor: "text-black",
+      color: "bg-green-500",
     },
     {
-      icon: <Clock className="h-8 w-8" />,
-      title: "Support Hours",
-      description: "We're here to help across all African time zones",
-      contact: "24/7 Support Available",
-      action: "Learn More",
-      background: "bg-blue-500",
-      textColor: "text-white",
-    },
-    {
-      icon: <MessageSquare className="h-8 w-8" />,
+      icon: <MessageCircle className="h-6 w-6" />,
       title: "Live Chat",
-      description: "Instant messaging support for quick questions",
-      contact: "Available on our app",
+      description: "Get instant help through our chat system",
+      contact: "Available 24/7",
       action: "Start Chat",
-      background: "bg-orange-500",
-      textColor: "text-black",
+      color: "bg-orange-500",
     },
   ]
 
   const officeLocations = [
     {
-      city: "Nairobi, Kenya",
-      address: "Westlands Business District",
-      description: "Our East Africa headquarters serving Kenya, Uganda, Tanzania, and Rwanda",
-      image: "/images/office-meeting.jpg",
+      city: "Nairobi",
+      country: "Kenya",
+      address: "Westlands Business District, Nairobi, Kenya",
+      phone: "+254 711 129204",
+      email: "sammywinter01@gmail.com",
+      image: "/images/pexels-kelvin-kibe-3073372-26898331.jpg",
+      isActive: true,
     },
     {
-      city: "Lagos, Nigeria",
-      address: "Victoria Island Financial District",
-      description: "West Africa operations center serving Nigeria, Ghana, Senegal, and Ivory Coast",
-      image: "/images/coworking-space.jpg",
+      city: "Lagos",
+      country: "Nigeria",
+      address: "Victoria Island, Lagos, Nigeria",
+      phone: "+234 800 123 456",
+      email: "lagos@grova.africa",
+      image: "/images/pexels-eben-20430714.jpg",
+      isActive: false,
+      comingSoon: true,
     },
     {
-      city: "Cape Town, South Africa",
-      address: "Financial Services District",
-      description: "Southern Africa hub serving South Africa, Botswana, Namibia, and Zimbabwe",
-      image: "/images/business-professional.jpg",
+      city: "Cape Town",
+      country: "South Africa",
+      address: "Waterfront District, Cape Town, South Africa",
+      phone: "+27 21 123 4567",
+      email: "capetown@grova.africa",
+      image: "/images/pexels-silver-works-909675-2003763.jpg",
+      isActive: false,
+      comingSoon: true,
     },
   ]
 
-  const supportCategories = [
-    {
-      icon: <Users className="h-6 w-6" />,
-      title: "General Support",
-      description: "Account help, app navigation, and general questions",
-    },
-    {
-      icon: <Briefcase className="h-6 w-6" />,
-      title: "Business Inquiries",
-      description: "Partnership opportunities and enterprise solutions",
-    },
-    {
-      icon: <Globe className="h-6 w-6" />,
-      title: "Technical Support",
-      description: "App issues, connectivity problems, and technical assistance",
-    },
+  const africanCountries = [
+    "Algeria",
+    "Angola",
+    "Benin",
+    "Botswana",
+    "Burkina Faso",
+    "Burundi",
+    "Cameroon",
+    "Cape Verde",
+    "Central African Republic",
+    "Chad",
+    "Comoros",
+    "Congo",
+    "Democratic Republic of Congo",
+    "Djibouti",
+    "Egypt",
+    "Equatorial Guinea",
+    "Eritrea",
+    "Eswatini",
+    "Ethiopia",
+    "Gabon",
+    "Gambia",
+    "Ghana",
+    "Guinea",
+    "Guinea-Bissau",
+    "Ivory Coast",
+    "Kenya",
+    "Lesotho",
+    "Liberia",
+    "Libya",
+    "Madagascar",
+    "Malawi",
+    "Mali",
+    "Mauritania",
+    "Mauritius",
+    "Morocco",
+    "Mozambique",
+    "Namibia",
+    "Niger",
+    "Nigeria",
+    "Rwanda",
+    "São Tomé and Príncipe",
+    "Senegal",
+    "Seychelles",
+    "Sierra Leone",
+    "Somalia",
+    "South Africa",
+    "South Sudan",
+    "Sudan",
+    "Tanzania",
+    "Togo",
+    "Tunisia",
+    "Uganda",
+    "Zambia",
+    "Zimbabwe",
   ]
 
   return (
@@ -165,10 +222,10 @@ export default function ContactPage() {
 
       {/* Notification Toast */}
       {notification && (
-        <div className="fixed top-20 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-in-right">
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="h-5 w-5" />
-            <span>{notification}</span>
+        <div className="fixed top-20 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-in-right max-w-md">
+          <div className="flex items-start space-x-2">
+            <CheckCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
+            <span className="text-sm">{notification}</span>
           </div>
         </div>
       )}
@@ -201,17 +258,17 @@ export default function ContactPage() {
       <section className="py-16 bg-gradient-to-br from-blue-50 via-white to-orange-50">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12 animate-fade-in-up">
-            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">Get in Touch</Badge>
-            <h1 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
+            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">Get In Touch</Badge>
+            <h1 className="text-2xl lg:text-3xl font-black text-gray-900 mb-4 leading-tight animate-fade-in-up font-heading">
               We're Here to
-              <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent animate-gradient">
                 Help You
               </span>
             </h1>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Have questions about Grova's revolutionary features? Need support with your financial journey? Want to
-              partner with us to expand financial inclusion across Africa? Our dedicated team is available 24/7 to
-              provide comprehensive assistance and support for all your financial needs across all 54 African countries.
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto">
+              Whether you have questions about our services, need technical support, want to explore partnership
+              opportunities, or simply want to learn more about how Grova is transforming financial services across
+              Africa, our dedicated team is ready to assist you through multiple convenient channels.
             </p>
           </div>
         </div>
@@ -220,19 +277,19 @@ export default function ContactPage() {
       {/* Contact Methods */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Multiple Ways to Reach Us</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Choose the contact method that works best for you. We're committed to providing excellent support across
-              all channels.
+          <div className="text-center mb-12">
+            <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">Multiple Ways to Reach Us</h2>
+            <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+              Choose the contact method that works best for you. Our team is available across multiple channels to
+              provide the support you need.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
             {contactMethods.map((method, index) => (
               <Card
                 key={index}
-                className={`neomorphism border-0 ${method.background} ${method.textColor} text-center hover:scale-105 transition-all duration-300 shadow-xl cursor-pointer animate-fade-in-up`}
+                className="neomorphism border-0 bg-white hover:scale-105 transition-all duration-300 text-center animate-fade-in-up cursor-pointer"
                 style={{ animationDelay: `${index * 150}ms` }}
                 onClick={() => {
                   if (method.contact.includes("@")) {
@@ -240,30 +297,22 @@ export default function ContactPage() {
                   } else if (method.contact.includes("+")) {
                     window.location.href = `tel:${method.contact}`
                   } else {
-                    setNotification(`${method.title} - More information coming soon!`)
+                    setNotification("Live chat feature coming soon!")
                   }
                 }}
               >
-                <CardHeader className="pb-4">
+                <CardHeader className="pb-3">
                   <div
-                    className={`w-16 h-16 ${
-                      method.textColor === "text-white" ? "bg-white/20" : "bg-black/20"
-                    } rounded-2xl neomorphism flex items-center justify-center mx-auto mb-4`}
+                    className={`w-12 h-12 ${method.color} rounded-xl neomorphism flex items-center justify-center mx-auto mb-3 text-white`}
                   >
                     {method.icon}
                   </div>
-                  <CardTitle className={`text-xl font-black ${method.textColor}`}>{method.title}</CardTitle>
+                  <CardTitle className="text-base font-bold text-gray-900">{method.title}</CardTitle>
+                  <CardDescription className="text-gray-600 text-sm">{method.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className={`${method.textColor} text-base mb-4 opacity-90`}>
-                    {method.description}
-                  </CardDescription>
-                  <p className="font-bold text-lg mb-4">{method.contact}</p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className={`${method.textColor === "text-white" ? "border-white text-white hover:bg-white hover:text-blue-600" : "border-black text-black hover:bg-black hover:text-white"} neomorphism`}
-                  >
+                  <p className="text-sm font-medium text-gray-900 mb-4">{method.contact}</p>
+                  <Button className={`neomorphism ${method.color} text-white hover:opacity-90 text-sm`}>
                     {method.action}
                   </Button>
                 </CardContent>
@@ -276,138 +325,250 @@ export default function ContactPage() {
       {/* Contact Form */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12 animate-fade-in-up">
-              <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Send Us a Message</h2>
-              <p className="text-lg text-gray-600">
-                Fill out the form below and we'll get back to you within 24 hours with a comprehensive response.
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-xs">
+                Send Message
+              </Badge>
+              <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-6">Get Detailed Support</h2>
+              <p className="text-sm text-gray-600 mb-8 leading-relaxed">
+                Fill out our comprehensive contact form and we'll get back to you within 24 hours with detailed
+                responses to your questions. Our team reviews every message personally to ensure you get the most
+                helpful and accurate information.
               </p>
-            </div>
 
-            <div className="grid lg:grid-cols-2 gap-12">
-              <Card className="neomorphism border-0 bg-white animate-fade-in-up">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-gray-900">Contact Form</CardTitle>
-                  <CardDescription>
-                    We'd love to hear from you. Send us a message and we'll respond promptly.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                      <Label htmlFor="name" className="text-sm font-medium text-gray-700">
-                        Full Name
-                      </Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        className="mt-1 neomorphism border-gray-300"
-                        placeholder="Enter your full name"
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                        Email Address
-                      </Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="mt-1 neomorphism border-gray-300"
-                        placeholder="Enter your email address"
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="subject" className="text-sm font-medium text-gray-700">
-                        Subject
-                      </Label>
-                      <Input
-                        id="subject"
-                        name="subject"
-                        type="text"
-                        required
-                        value={formData.subject}
-                        onChange={handleInputChange}
-                        className="mt-1 neomorphism border-gray-300"
-                        placeholder="What's this about?"
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="message" className="text-sm font-medium text-gray-700">
-                        Message
-                      </Label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        required
-                        rows={5}
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        className="mt-1 neomorphism border-gray-300"
-                        placeholder="Tell us how we can help you..."
-                      />
-                    </div>
-
-                    <Button type="submit" className="w-full neomorphism bg-blue-500 hover:bg-blue-600 text-white">
-                      <Send className="mr-2 h-5 w-5" />
-                      Send Message
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-
-              <div className="space-y-8 animate-fade-in-up animation-delay-200">
-                <Card className="neomorphism border-0 bg-white">
-                  <CardHeader>
-                    <CardTitle className="text-xl font-bold text-gray-900">Support Categories</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {supportCategories.map((category, index) => (
-                        <div key={index} className="flex items-start space-x-3">
-                          <div className="w-10 h-10 bg-blue-500 rounded-lg neomorphism flex items-center justify-center flex-shrink-0">
-                            {category.icon}
-                          </div>
-                          <div>
-                            <h3 className="font-bold text-gray-900">{category.title}</h3>
-                            <p className="text-sm text-gray-600">{category.description}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="neomorphism border-0 bg-gradient-to-br from-blue-500 to-orange-500 text-white">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold mb-4">Need Immediate Help?</h3>
-                    <p className="mb-4 opacity-90">
-                      For urgent issues or immediate assistance, don't hesitate to call our 24/7 support line.
-                    </p>
-                    <Button
-                      variant="outline"
-                      className="border-white text-white hover:bg-white hover:text-blue-600 neomorphism bg-transparent"
-                      onClick={() => (window.location.href = "tel:+254711129204")}
-                    >
-                      <Phone className="mr-2 h-4 w-4" />
-                      Call +254711129204
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                {/* -- END “Need Immediate Help?” card -- */}
+              <div className="space-y-6">
+                <div className="flex items-center space-x-3">
+                  <Clock className="h-5 w-5 text-blue-500" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">Response Time</div>
+                    <div className="text-xs text-gray-600">Within 24 hours</div>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Globe className="h-5 w-5 text-blue-500" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">Coverage</div>
+                    <div className="text-xs text-gray-600">All 54 African countries</div>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <MessageCircle className="h-5 w-5 text-blue-500" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">Languages</div>
+                    <div className="text-xs text-gray-600">English, French, Arabic, Swahili</div>
+                  </div>
+                </div>
               </div>
             </div>
+
+            <Card className="neomorphism border-0 bg-white">
+              <CardHeader>
+                <CardTitle className="text-base font-bold text-gray-900">Send us a detailed message</CardTitle>
+                <CardDescription className="text-sm text-gray-600">
+                  All fields are required for the best support experience
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700 mb-2">First Name *</label>
+                      <Input
+                        type="text"
+                        value={formData.firstName}
+                        onChange={(e) => handleInputChange("firstName", e.target.value)}
+                        placeholder="John"
+                        required
+                        className="text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700 mb-2">Last Name *</label>
+                      <Input
+                        type="text"
+                        value={formData.lastName}
+                        onChange={(e) => handleInputChange("lastName", e.target.value)}
+                        placeholder="Doe"
+                        required
+                        className="text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-2">Email Address *</label>
+                    <Input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange("email", e.target.value)}
+                      placeholder="john@example.com"
+                      required
+                      className="text-sm"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700 mb-2">Phone Number</label>
+                      <Input
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => handleInputChange("phone", e.target.value)}
+                        placeholder="+254 700 123 456"
+                        className="text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700 mb-2">Country *</label>
+                      <Select value={formData.country} onValueChange={(value) => handleInputChange("country", value)}>
+                        <SelectTrigger className="text-sm">
+                          <SelectValue placeholder="Select your country" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {africanCountries.map((country) => (
+                            <SelectItem key={country} value={country} className="text-sm">
+                              {country}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-2">Subject *</label>
+                    <Select value={formData.subject} onValueChange={(value) => handleInputChange("subject", value)}>
+                      <SelectTrigger className="text-sm">
+                        <SelectValue placeholder="What can we help you with?" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="general" className="text-sm">
+                          General Inquiry
+                        </SelectItem>
+                        <SelectItem value="technical" className="text-sm">
+                          Technical Support
+                        </SelectItem>
+                        <SelectItem value="partnership" className="text-sm">
+                          Partnership Opportunities
+                        </SelectItem>
+                        <SelectItem value="investment" className="text-sm">
+                          Investment Information
+                        </SelectItem>
+                        <SelectItem value="media" className="text-sm">
+                          Media & Press
+                        </SelectItem>
+                        <SelectItem value="careers" className="text-sm">
+                          Career Opportunities
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-2">Message *</label>
+                    <Textarea
+                      value={formData.message}
+                      onChange={(e) => handleInputChange("message", e.target.value)}
+                      placeholder="Please provide detailed information about your inquiry, including any specific questions or requirements..."
+                      rows={5}
+                      required
+                      className="text-sm"
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full neomorphism bg-blue-500 hover:bg-blue-600 text-white text-sm"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        Sending Message...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="mr-2 h-4 w-4" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Office Locations */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">Our Offices</Badge>
+            <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">Visit Us Across Africa</h2>
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto">
+              With offices strategically located across key African markets, we're always close to our users and
+              partners. Visit us in person or reach out to your nearest office for localized support.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {officeLocations.map((office, index) => (
+              <Card
+                key={index}
+                className="neomorphism border-0 bg-white hover:scale-105 transition-all duration-300 animate-fade-in-up relative"
+                style={{ animationDelay: `${index * 200}ms` }}
+              >
+                {office.comingSoon && (
+                  <Badge className="absolute top-4 right-4 z-10 neomorphism bg-orange-500 text-black text-xs">
+                    Coming Soon
+                  </Badge>
+                )}
+                <div className="aspect-video relative overflow-hidden rounded-t-xl">
+                  <Image
+                    src={office.image || "/placeholder.svg"}
+                    alt={`${office.city} office`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base font-bold text-gray-900">
+                    {office.city}, {office.country}
+                  </CardTitle>
+                  <CardDescription className="text-gray-600 text-sm">{office.address}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center space-x-3">
+                    <Phone className="h-4 w-4 text-blue-500" />
+                    <span className="text-sm text-gray-700">{office.phone}</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Mail className="h-4 w-4 text-blue-500" />
+                    <span className="text-sm text-gray-700">{office.email}</span>
+                  </div>
+                  <Button
+                    className={`w-full neomorphism text-sm ${
+                      office.isActive
+                        ? "bg-blue-500 hover:bg-blue-600 text-white"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    }`}
+                    onClick={() => {
+                      if (office.isActive) {
+                        window.open(`https://maps.google.com/?q=${encodeURIComponent(office.address)}`, "_blank")
+                      } else {
+                        setNotification(`${office.city} office opening soon!`)
+                      }
+                    }}
+                    disabled={!office.isActive}
+                  >
+                    <MapPin className="mr-2 h-4 w-4" />
+                    {office.isActive ? "Get Directions" : "Opening Soon"}
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -415,17 +576,17 @@ export default function ContactPage() {
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-blue-500 to-orange-500 text-white">
         <div className="container mx-auto px-4 lg:px-8 text-center animate-fade-in-up">
-          <h2 className="text-3xl lg:text-4xl font-black mb-4">Ready to Get Started?</h2>
-          <p className="text-lg mb-6 max-w-2xl mx-auto opacity-90">
-            Download Grova today and join thousands across Africa who are transforming their financial lives with our
-            revolutionary platform.
+          <h2 className="text-xl lg:text-2xl font-black mb-4">Ready to Get Started?</h2>
+          <p className="text-sm mb-6 max-w-2xl mx-auto opacity-90">
+            Don't wait - download Grova today and join millions of Africans who are already experiencing the future of
+            financial services. Get started in minutes and discover what makes Grova different.
           </p>
           <Button
             size="lg"
-            className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-base font-semibold"
+            className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-sm font-semibold"
             onClick={() => setNotification("Redirecting to app store...")}
           >
-            <Download className="mr-2 h-5 w-5" />
+            <Send className="mr-2 h-5 w-5" />
             Download Grova App
           </Button>
         </div>

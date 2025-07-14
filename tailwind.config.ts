@@ -10,10 +10,18 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        logo: ["Lufga", "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        heading: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        body: ["Lato", "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        sans: ["Lato", "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        logo: ["var(--font-lufga)", "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        heading: [
+          "var(--font-lufga)",
+          "Inter",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "sans-serif",
+        ],
+        body: ["var(--font-lato)", "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        sans: ["var(--font-lato)", "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -66,8 +74,8 @@ const config: Config = {
         "slide-in-right": "slideInRight 0.6s ease-out forwards",
         "slide-in-left": "slideInLeft 0.6s ease-out forwards",
         "bounce-gentle": "bounceGentle 2s infinite",
-        float: "float 6s ease-in-out infinite",
-        "float-delayed": "floatDelayed 6s ease-in-out infinite 2s",
+        float: "float 40s ease-in-out infinite",
+        "float-delayed": "floatDelayed 40s ease-in-out infinite 10s",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         spin: "spin 1s linear infinite",
         gradient: "gradient 3s ease infinite",
@@ -184,7 +192,7 @@ const config: Config = {
             transform: "translateY(0px)",
           },
           "50%": {
-            transform: "translateY(-20px)",
+            transform: "translateY(-3px)",
           },
         },
         floatDelayed: {
@@ -192,7 +200,7 @@ const config: Config = {
             transform: "translateY(0px)",
           },
           "50%": {
-            transform: "translateY(-15px)",
+            transform: "translateY(-2px)",
           },
         },
         gradient: {

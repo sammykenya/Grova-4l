@@ -198,9 +198,13 @@ export default function GrovaLanding() {
   // Handle download button clicks
   const handleDownload = (platform: string) => {
     setIsLoading(true)
-    // Simulate download process
     setTimeout(() => {
       setIsLoading(false)
+      if (platform === "Android") {
+        window.open("https://play.google.com/store/search?q=grova&c=apps", "_blank")
+      } else if (platform === "iOS") {
+        window.open("https://apps.apple.com/search?term=grova", "_blank")
+      }
       setNotification(`Redirecting to ${platform} store...`)
       setTimeout(() => setNotification(""), 3000)
     }, 1500)
@@ -815,14 +819,14 @@ export default function GrovaLanding() {
                 🚀 Revolutionary Financial Super-App for Africa
               </Badge>
 
-              <h1 className="text-4xl lg:text-6xl font-black text-gray-900 mb-4 leading-tight animate-fade-in-up font-heading">
+              <h1 className="text-2xl lg:text-4xl font-black text-gray-900 mb-4 leading-tight animate-fade-in-up font-heading">
                 Finance Without
                 <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent animate-gradient">
                   Borders
                 </span>
               </h1>
 
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed animate-fade-in-up animation-delay-200">
+              <p className="text-sm text-gray-600 mb-6 leading-relaxed animate-fade-in-up animation-delay-200">
                 Revolutionary financial super-app designed specifically for Africa's 1.4 billion people and underbanked
                 populations across all 54 countries. Our comprehensive platform features a triple wallet system
                 supporting fiat currencies, cryptocurrencies, and community credits, combined with groundbreaking
@@ -833,7 +837,7 @@ export default function GrovaLanding() {
               <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-fade-in-up animation-delay-400">
                 <Button
                   size="lg"
-                  className="neomorphism bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 text-lg font-bold shadow-2xl hover-lift transition-all duration-300 group btn-animate"
+                  className="neomorphism bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 text-sm font-bold shadow-2xl hover-lift transition-all duration-300 group btn-animate"
                   onClick={() => handleDownload("Android")}
                 >
                   <Download className="mr-3 h-6 w-6 group-hover:animate-bounce" />
@@ -843,7 +847,7 @@ export default function GrovaLanding() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="neomorphism border-2 border-blue-500 text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg font-bold bg-white hover-scale transition-all duration-300 group"
+                  className="neomorphism border-2 border-blue-500 text-blue-600 hover:bg-blue-50 px-8 py-4 text-sm font-bold bg-white hover-scale transition-all duration-300 group"
                   onClick={() => setNotification("Demo video coming soon!")}
                 >
                   <PlayCircle className="mr-3 h-6 w-6 group-hover:animate-pulse" />
@@ -901,10 +905,10 @@ export default function GrovaLanding() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-orange-900/20"></div>
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-3xl lg:text-4xl font-black text-white mb-4 font-heading">
+            <h2 className="text-xl lg:text-2xl font-black text-white mb-4 font-heading">
               Transforming Africa's Financial Landscape
             </h2>
-            <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+            <p className="text-sm text-gray-300 max-w-3xl mx-auto">
               Real impact numbers showing our commitment to serving all of Africa's 1.4 billion people and achieving
               complete financial inclusion across the continent
             </p>
@@ -916,7 +920,7 @@ export default function GrovaLanding() {
                 className="text-center hover-lift transition-all duration-300 animate-fade-in-up fade-in-on-scroll"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
-                <div className="text-4xl lg:text-6xl font-black mb-3 bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent animate-number-count font-heading">
+                <div className="text-2xl lg:text-4xl font-black mb-3 bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent animate-number-count font-heading">
                   {stat.number}
                 </div>
                 <div className="text-gray-300 font-bold text-base">{stat.label}</div>
@@ -934,10 +938,10 @@ export default function GrovaLanding() {
               <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs animate-bounce-gentle">
                 Triple Wallet System
               </Badge>
-              <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+              <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-6 font-heading">
                 Three Wallets, Infinite Possibilities
               </h2>
-              <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+              <p className="text-sm text-gray-600 mb-6 leading-relaxed">
                 Manage fiat currencies, cryptocurrencies, and community credits all in one place. Seamlessly switch
                 between traditional banking and digital assets.
               </p>
@@ -947,7 +951,7 @@ export default function GrovaLanding() {
                     <Wallet className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-heading">Fiat Wallet</h3>
+                    <h3 className="text-base font-bold text-gray-900 font-heading">Fiat Wallet</h3>
                     <p className="text-gray-600">KES, USD, INR with real bank integration</p>
                   </div>
                 </div>
@@ -956,7 +960,7 @@ export default function GrovaLanding() {
                     <QrCode className="h-6 w-6 text-black" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-heading">Crypto Wallet</h3>
+                    <h3 className="text-base font-bold text-gray-900 font-heading">Crypto Wallet</h3>
                     <p className="text-gray-600">Bitcoin, Ethereum, and stablecoins</p>
                   </div>
                 </div>
@@ -965,7 +969,7 @@ export default function GrovaLanding() {
                     <Users className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-heading">Credits Wallet</h3>
+                    <h3 className="text-base font-bold text-gray-900 font-heading">Credits Wallet</h3>
                     <p className="text-gray-600">Community-backed digital credits</p>
                   </div>
                 </div>
@@ -994,10 +998,10 @@ export default function GrovaLanding() {
               <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-xs animate-bounce-gentle">
                 Offline-First Technology
               </Badge>
-              <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+              <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-6 font-heading">
                 Banking Without Internet
               </h2>
-              <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+              <p className="text-sm text-gray-600 mb-6 leading-relaxed">
                 Revolutionary offline capabilities ensure financial access even in remote areas. Bluetooth P2P transfers
                 and mesh networks keep you connected.
               </p>
@@ -1007,7 +1011,7 @@ export default function GrovaLanding() {
                     <Bluetooth className="h-6 w-6 text-black" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-heading">Bluetooth P2P Transfers</h3>
+                    <h3 className="text-base font-bold text-gray-900 font-heading">Bluetooth P2P Transfers</h3>
                     <p className="text-gray-600">Send money directly between devices</p>
                   </div>
                 </div>
@@ -1016,7 +1020,7 @@ export default function GrovaLanding() {
                     <WifiOff className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-heading">Mesh Network Support</h3>
+                    <h3 className="text-base font-bold text-gray-900 font-heading">Mesh Network Support</h3>
                     <p className="text-gray-600">Create local financial networks</p>
                   </div>
                 </div>
@@ -1025,7 +1029,7 @@ export default function GrovaLanding() {
                     <Zap className="h-6 w-6 text-black" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-heading">Transaction Queue</h3>
+                    <h3 className="text-base font-bold text-gray-900 font-heading">Transaction Queue</h3>
                     <p className="text-gray-600">Sync when connectivity returns</p>
                   </div>
                 </div>
@@ -1054,10 +1058,10 @@ export default function GrovaLanding() {
               <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs animate-bounce-gentle">
                 AI-Powered Coach
               </Badge>
-              <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+              <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-6 font-heading">
                 Your Personal Financial Coach
               </h2>
-              <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+              <p className="text-sm text-gray-600 mb-6 leading-relaxed">
                 GPT-4 powered AI coach provides personalized financial guidance tailored for developing economies. Voice
                 commands and multilingual support ensure accessibility for all.
               </p>
@@ -1067,7 +1071,7 @@ export default function GrovaLanding() {
                     <Brain className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-heading">Personalized Advice</h3>
+                    <h3 className="text-base font-bold text-gray-900 font-heading">Personalized Advice</h3>
                     <p className="text-gray-600">Context-aware financial guidance</p>
                   </div>
                 </div>
@@ -1076,7 +1080,7 @@ export default function GrovaLanding() {
                     <Volume2 className="h-6 w-6 text-black" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-heading">Voice Commands</h3>
+                    <h3 className="text-base font-bold text-gray-900 font-heading">Voice Commands</h3>
                     <p className="text-gray-600">Multilingual voice interface</p>
                   </div>
                 </div>
@@ -1085,7 +1089,7 @@ export default function GrovaLanding() {
                     <BarChart3 className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-heading">Spending Analysis</h3>
+                    <h3 className="text-base font-bold text-gray-900 font-heading">Spending Analysis</h3>
                     <p className="text-gray-600">AI-driven financial insights</p>
                   </div>
                 </div>
@@ -1113,10 +1117,10 @@ export default function GrovaLanding() {
             <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-sm animate-bounce-gentle">
               Revolutionary Technology
             </Badge>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+            <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-6 font-heading">
               Core Revolutionary Features
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <p className="text-sm text-gray-600 max-w-4xl mx-auto">
               Grova combines cutting-edge technology with deep understanding of African financial needs, delivering
               comprehensive solutions that work seamlessly both online and offline across all 54 African countries. Our
               revolutionary features address the unique challenges faced by Africa's diverse financial landscape while
@@ -1140,13 +1144,13 @@ export default function GrovaLanding() {
                     {React.cloneElement(feature.icon, { className: "h-8 w-8" })}
                   </div>
                   <CardTitle
-                    className={`text-xl font-black ${feature.textColor} group-hover:animate-pulse font-heading`}
+                    className={`text-base font-black ${feature.textColor} group-hover:animate-pulse font-heading`}
                   >
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className={`${feature.textColor} text-base opacity-90 leading-relaxed mb-4`}>
+                  <CardDescription className={`${feature.textColor} text-sm opacity-90 leading-relaxed mb-4`}>
                     {feature.description}
                   </CardDescription>
                   <div className="flex items-center opacity-70 group-hover:opacity-100 transition-opacity duration-300">
@@ -1167,10 +1171,10 @@ export default function GrovaLanding() {
             <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-sm animate-bounce-gentle">
               User Stories
             </Badge>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+            <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-6 font-heading">
               Trusted by Thousands Across Africa
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <p className="text-sm text-gray-600 max-w-4xl mx-auto">
               See how Grova is transforming financial lives across Africa, from small business owners in Nairobi to
               farmers in rural Kenya, from market vendors in Mombasa to entrepreneurs in Eldoret. Our users represent
               the diversity and resilience of Africa's economic landscape, and their success stories demonstrate the
@@ -1196,7 +1200,7 @@ export default function GrovaLanding() {
                       />
                     ))}
                   </div>
-                  <p className="text-gray-600 mb-6 italic text-base leading-relaxed">"{testimonial.content}"</p>
+                  <p className="text-gray-600 mb-6 italic text-sm leading-relaxed">"{testimonial.content}"</p>
                   <div className="flex items-center space-x-4">
                     <Image
                       src={testimonial.image || "/placeholder.svg"}
@@ -1206,7 +1210,7 @@ export default function GrovaLanding() {
                       className="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                     <div>
-                      <div className="font-bold text-gray-900 text-base font-heading">{testimonial.name}</div>
+                      <div className="font-bold text-gray-900 text-sm font-heading">{testimonial.name}</div>
                       <div className="text-sm text-gray-500">{testimonial.role}</div>
                     </div>
                   </div>
@@ -1224,10 +1228,10 @@ export default function GrovaLanding() {
             <Badge className="mb-4 neomorphism bg-orange-500 text-black hover:bg-orange-600 text-sm animate-bounce-gentle">
               Frequently Asked Questions
             </Badge>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">
+            <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-6 font-heading">
               Everything You Need to Know
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <p className="text-sm text-gray-600 max-w-4xl mx-auto">
               Get comprehensive answers to common questions about Grova's revolutionary features, security measures,
               African market coverage, and how our platform is transforming financial services across the continent. Our
               detailed responses address the unique aspects of African financial markets and how Grova serves diverse
@@ -1244,10 +1248,10 @@ export default function GrovaLanding() {
                   className="neomorphism bg-white rounded-2xl px-8 py-2 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up fade-in-on-scroll hover-lift"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <AccordionTrigger className="text-left font-bold text-gray-900 hover:no-underline text-lg py-6 hover:text-blue-600 transition-colors duration-300 font-heading">
+                  <AccordionTrigger className="text-left font-bold text-gray-900 hover:no-underline text-sm py-6 hover:text-blue-600 transition-colors duration-300 font-heading">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 text-base leading-relaxed pb-6 animate-fade-in">
+                  <AccordionContent className="text-gray-600 text-sm leading-relaxed pb-6 animate-fade-in">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -1268,10 +1272,10 @@ export default function GrovaLanding() {
           <Badge className="mb-6 neomorphism bg-white/20 text-white border-white/30 text-sm animate-bounce-gentle">
             Ready to Transform Your Financial Life?
           </Badge>
-          <h2 className="text-4xl lg:text-6xl font-black mb-6 leading-tight animate-fade-in-up font-heading">
+          <h2 className="text-2xl lg:text-4xl font-black mb-6 leading-tight animate-fade-in-up font-heading">
             Download Grova Today
           </h2>
-          <p className="text-xl mb-10 max-w-3xl mx-auto opacity-90 leading-relaxed animate-fade-in-up animation-delay-200">
+          <p className="text-sm mb-10 max-w-3xl mx-auto opacity-90 leading-relaxed animate-fade-in-up animation-delay-200">
             Join thousands of users across Africa who are already experiencing the future of finance with Grova.
             Revolutionary features including triple wallet system, offline-first technology, AI financial coaching,
             comprehensive banking integration, investment platforms, and bank-grade security - all unified in one
@@ -1281,7 +1285,7 @@ export default function GrovaLanding() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12 animate-fade-in-up animation-delay-400">
             <Button
               size="lg"
-              className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-10 py-5 text-xl font-black shadow-2xl hover-lift transition-all duration-300 group btn-animate"
+              className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-10 py-5 text-sm font-black shadow-2xl hover-lift transition-all duration-300 group btn-animate"
               onClick={() => handleDownload("Android")}
             >
               <Download className="mr-3 h-7 w-7 group-hover:animate-bounce" />
@@ -1291,7 +1295,7 @@ export default function GrovaLanding() {
             <Button
               size="lg"
               variant="outline"
-              className="neomorphism border-3 border-white text-white hover:bg-white hover:text-blue-600 px-10 py-5 text-xl font-black bg-transparent shadow-2xl hover-scale transition-all duration-300 group"
+              className="neomorphism border-3 border-white text-white hover:bg-white hover:text-blue-600 px-10 py-5 text-sm font-black bg-transparent shadow-2xl hover-scale transition-all duration-300 group"
               onClick={() => handleDownload("iOS")}
             >
               <Download className="mr-3 h-7 w-7 group-hover:animate-bounce" />
@@ -1326,8 +1330,8 @@ export default function GrovaLanding() {
             <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-sm animate-bounce-gentle">
               Get in Touch
             </Badge>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-6 font-heading">We're Here to Help</h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-6 font-heading">We're Here to Help</h2>
+            <p className="text-sm text-gray-600 max-w-4xl mx-auto">
               Have questions about Grova's revolutionary features? Need support with your financial journey? Want to
               partner with us to expand financial inclusion across Africa? Our dedicated team is available 24/7 to
               provide comprehensive assistance and support for all your financial needs.
@@ -1348,7 +1352,7 @@ export default function GrovaLanding() {
                 icon: Phone,
                 title: "Phone Support",
                 description: "Call us directly for immediate assistance",
-                contact: "+254711129204",
+                contact: "+254 711 129204",
                 bg: "bg-orange-500",
                 textColor: "text-black",
               },
@@ -1371,7 +1375,7 @@ export default function GrovaLanding() {
                   } else if (contact.contact.includes("+")) {
                     window.location.href = `tel:${contact.contact}`
                   } else {
-                    handleContactSubmit()
+                    setNotification("24/7 support available through email and phone!")
                   }
                 }}
               >
@@ -1383,9 +1387,9 @@ export default function GrovaLanding() {
                   >
                     <contact.icon className="h-8 w-8" />
                   </div>
-                  <h3 className="font-black mb-3 text-xl group-hover:animate-pulse font-heading">{contact.title}</h3>
-                  <p className={`${contact.textColor} text-base mb-4 opacity-90`}>{contact.description}</p>
-                  <p className="font-bold text-lg">{contact.contact}</p>
+                  <h3 className="font-black mb-3 text-base group-hover:animate-pulse font-heading">{contact.title}</h3>
+                  <p className={`${contact.textColor} text-sm mb-4 opacity-90`}>{contact.description}</p>
+                  <p className="font-bold text-sm">{contact.contact}</p>
                 </CardContent>
               </Card>
             ))}
@@ -1406,7 +1410,7 @@ export default function GrovaLanding() {
                   Grova
                 </span>
               </div>
-              <p className="text-gray-400 mb-6 text-base leading-relaxed">
+              <p className="text-gray-400 mb-6 text-sm leading-relaxed">
                 Finance without borders. Revolutionary financial platform designed specifically for Africa's 1.4 billion
                 people and underbanked populations across all 54 countries. Empowering financial inclusion through
                 innovative technology, comprehensive services, and deep understanding of African markets.
@@ -1458,8 +1462,8 @@ export default function GrovaLanding() {
                 className="animate-fade-in-up fade-in-on-scroll"
                 style={{ animationDelay: `${sectionIndex * 100}ms` }}
               >
-                <h3 className="font-black mb-4 text-lg font-heading">{section.title}</h3>
-                <ul className="space-y-3 text-gray-400 text-base">
+                <h3 className="font-black mb-4 text-sm font-heading">{section.title}</h3>
+                <ul className="space-y-3 text-gray-400 text-sm">
                   {section.links.map((link, linkIndex) => (
                     <li key={link.href}>
                       <Link

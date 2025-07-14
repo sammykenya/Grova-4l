@@ -214,28 +214,28 @@ export default function SolutionsPage() {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto neomorphism">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-black text-gray-900 flex items-center gap-3">
+            <DialogTitle className="text-xl font-black text-gray-900 flex items-center gap-3">
               {selectedSolution?.icon}
               {selectedSolution?.title}
             </DialogTitle>
-            <DialogDescription className="text-lg text-gray-600">{selectedSolution?.description}</DialogDescription>
+            <DialogDescription className="text-sm text-gray-600">{selectedSolution?.description}</DialogDescription>
           </DialogHeader>
 
           {selectedSolution?.detailedInfo && (
             <div className="space-y-6 mt-6">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Overview</h3>
-                <p className="text-gray-700 leading-relaxed">{selectedSolution.detailedInfo.overview}</p>
+                <h3 className="text-base font-bold text-gray-900 mb-3">Overview</h3>
+                <p className="text-gray-700 leading-relaxed text-sm">{selectedSolution.detailedInfo.overview}</p>
               </div>
 
               {selectedSolution.details && (
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Key Features</h3>
+                  <h3 className="text-base font-bold text-gray-900 mb-3">Key Features</h3>
                   <ul className="space-y-2">
                     {selectedSolution.details.map((detail: string, index: number) => (
                       <li key={index} className="flex items-start gap-3">
                         <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700">{detail}</span>
+                        <span className="text-gray-700 text-sm">{detail}</span>
                       </li>
                     ))}
                   </ul>
@@ -243,15 +243,18 @@ export default function SolutionsPage() {
               )}
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Impact</h3>
-                <p className="text-gray-700 leading-relaxed">{selectedSolution.detailedInfo.impact}</p>
+                <h3 className="text-base font-bold text-gray-900 mb-3">Impact</h3>
+                <p className="text-gray-700 leading-relaxed text-sm">{selectedSolution.detailedInfo.impact}</p>
               </div>
             </div>
           )}
 
           <div className="flex gap-4 mt-8">
             <Button
-              onClick={() => setNotification("Redirecting to app store...")}
+              onClick={() => {
+                window.open("https://play.google.com/store/search?q=grova&c=apps", "_blank")
+                setNotification("Redirecting to app store...")
+              }}
               className="neomorphism bg-blue-500 hover:bg-blue-600 text-white flex-1"
             >
               <Download className="mr-2 h-5 w-5" />
@@ -299,13 +302,13 @@ export default function SolutionsPage() {
             <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">
               Complete Solutions
             </Badge>
-            <h1 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
+            <h1 className="text-2xl lg:text-3xl font-black text-gray-900 mb-4 leading-tight animate-fade-in-up font-heading">
               Complete Financial
-              <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent animate-gradient">
                 Ecosystem
               </span>
             </h1>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto">
               From comprehensive banking integration across all 54 African countries to revolutionary investment
               platforms covering continental markets, from advanced payment systems to community-driven funding
               solutions - Grova provides everything you need in one comprehensive, powerful, and accessible platform
@@ -332,8 +335,8 @@ export default function SolutionsPage() {
                     </Badge>
                     {solution.badge && <Badge className="bg-gray-200 text-gray-700 text-xs">{solution.badge}</Badge>}
                   </div>
-                  <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">{solution.title}</h2>
-                  <p className="text-lg text-gray-600 mb-6">{solution.description}</p>
+                  <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">{solution.title}</h2>
+                  <p className="text-sm text-gray-600 mb-6">{solution.description}</p>
 
                   <div className="space-y-3 mb-6">
                     {solution.details.map((detail, detailIndex) => (
@@ -380,15 +383,18 @@ export default function SolutionsPage() {
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-blue-500 to-orange-500 text-white">
         <div className="container mx-auto px-4 lg:px-8 text-center animate-fade-in-up">
-          <h2 className="text-3xl lg:text-4xl font-black mb-4">Ready to Access All Solutions?</h2>
-          <p className="text-lg mb-6 max-w-2xl mx-auto opacity-90">
+          <h2 className="text-xl lg:text-2xl font-black mb-4">Ready to Access All Solutions?</h2>
+          <p className="text-sm mb-6 max-w-2xl mx-auto opacity-90">
             Get started with Grova today and unlock the complete financial ecosystem designed specifically for Africa's
             diverse markets, unique challenges, and incredible opportunities. Experience the future of African finance.
           </p>
           <Button
             size="lg"
-            className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-base font-semibold"
-            onClick={() => setNotification("Redirecting to app store...")}
+            className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-sm font-semibold"
+            onClick={() => {
+              window.open("https://play.google.com/store/search?q=grova&c=apps", "_blank")
+              setNotification("Redirecting to app store...")
+            }}
           >
             <Download className="mr-2 h-5 w-5" />
             Download Grova App
