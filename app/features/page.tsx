@@ -288,28 +288,28 @@ export default function FeaturesPage() {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto neomorphism">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-black text-gray-900 flex items-center gap-3">
-              {selectedFeature?.icon}
+            <DialogTitle className="text-xl font-black text-gray-900 flex items-center gap-3">
+              {selectedFeature?.icon && React.cloneElement(selectedFeature.icon, { className: "h-6 w-6" })}
               {selectedFeature?.title}
             </DialogTitle>
-            <DialogDescription className="text-lg text-gray-600">{selectedFeature?.description}</DialogDescription>
+            <DialogDescription className="text-sm text-gray-600">{selectedFeature?.description}</DialogDescription>
           </DialogHeader>
 
           {selectedFeature?.detailedInfo && (
             <div className="space-y-6 mt-6">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Overview</h3>
-                <p className="text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.overview}</p>
+                <h3 className="text-base font-bold text-gray-900 mb-3">Overview</h3>
+                <p className="text-gray-700 leading-relaxed text-sm">{selectedFeature.detailedInfo.overview}</p>
               </div>
 
               {selectedFeature.details && (
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Key Features</h3>
+                  <h3 className="text-base font-bold text-gray-900 mb-3">Key Features</h3>
                   <ul className="space-y-2">
                     {selectedFeature.details.map((detail: string, index: number) => (
                       <li key={index} className="flex items-start gap-3">
                         <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700">{detail}</span>
+                        <span className="text-gray-700 text-sm">{detail}</span>
                       </li>
                     ))}
                   </ul>
@@ -318,15 +318,15 @@ export default function FeaturesPage() {
 
               {selectedFeature.detailedInfo.technicalSpecs && (
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Technical Specifications</h3>
-                  <p className="text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.technicalSpecs}</p>
+                  <h3 className="text-base font-bold text-gray-900 mb-3">Technical Specifications</h3>
+                  <p className="text-gray-700 leading-relaxed text-sm">{selectedFeature.detailedInfo.technicalSpecs}</p>
                 </div>
               )}
 
               {selectedFeature.detailedInfo.impact && (
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Impact</h3>
-                  <p className="text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.impact}</p>
+                  <h3 className="text-base font-bold text-gray-900 mb-3">Impact</h3>
+                  <p className="text-gray-700 leading-relaxed text-sm">{selectedFeature.detailedInfo.impact}</p>
                 </div>
               )}
             </div>
@@ -379,13 +379,13 @@ export default function FeaturesPage() {
             <Badge className="mb-4 neomorphism bg-blue-500 text-white hover:bg-blue-600 text-xs">
               Revolutionary Features
             </Badge>
-            <h1 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4 leading-tight animate-fade-in-up font-heading">
+            <h1 className="text-2xl lg:text-3xl font-black text-gray-900 mb-4 leading-tight animate-fade-in-up font-heading">
               Powerful Features for
               <span className="block bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent animate-gradient">
                 Modern Finance
               </span>
             </h1>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto">
               Discover the comprehensive suite of revolutionary tools and cutting-edge technologies that make Grova the
               most advanced financial platform for Africa's 1.4 billion people. Our features are specifically designed
               to address the unique challenges and opportunities within African financial markets while providing
@@ -409,7 +409,7 @@ export default function FeaturesPage() {
                   <Badge className={`mb-4 neomorphism ${feature.background} ${feature.textColor} text-xs`}>
                     {feature.title}
                   </Badge>
-                  <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">{feature.title}</h2>
+                  <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">{feature.title}</h2>
                   <p className="text-lg text-gray-600 mb-6">{feature.description}</p>
 
                   <div className="space-y-4 mb-6">
@@ -452,7 +452,7 @@ export default function FeaturesPage() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Advanced Financial Tools</h2>
+            <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">Advanced Financial Tools</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Professional-grade tools for comprehensive financial management and analysis, specifically designed for
               African markets and economic conditions. These advanced features provide institutional-level capabilities
@@ -474,7 +474,7 @@ export default function FeaturesPage() {
                   >
                     {tool.icon}
                   </div>
-                  <CardTitle className={`text-lg font-bold ${tool.textColor}`}>{tool.title}</CardTitle>
+                  <CardTitle className={`text-base font-bold ${tool.textColor}`}>{tool.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className={`${tool.textColor} text-sm opacity-90 mb-3`}>
@@ -496,7 +496,7 @@ export default function FeaturesPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center animate-fade-in-up">
             <div>
-              <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Built for African Professionals</h2>
+              <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">Built for African Professionals</h2>
               <p className="text-lg text-gray-600 mb-6">
                 From corporate executives in Lagos to entrepreneurs in Nairobi, from financial advisors in Cape Town to
                 small business owners in Accra, Grova provides the sophisticated tools needed for modern financial
@@ -528,7 +528,7 @@ export default function FeaturesPage() {
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-blue-500 to-orange-500 text-white">
         <div className="container mx-auto px-4 lg:px-8 text-center animate-fade-in-up">
-          <h2 className="text-3xl lg:text-4xl font-black mb-4">Experience These Revolutionary Features Today</h2>
+          <h2 className="text-xl lg:text-2xl font-black mb-4">Experience These Revolutionary Features Today</h2>
           <p className="text-lg mb-6 max-w-2xl mx-auto opacity-90">
             Download Grova and discover how our revolutionary features including triple wallet system, offline-first
             technology, AI financial coaching, and advanced analytics can transform your financial life and empower your
