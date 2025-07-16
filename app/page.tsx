@@ -4,7 +4,6 @@ import React from "react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import Head from 'next/head';
 import {
   Download,
   Smartphone,
@@ -161,7 +160,7 @@ export default function GrovaLanding() {
       window.location.href = "/about"
     } else if (lowerCommand.includes("read") || lowerCommand.includes("explain")) {
       speak(
-        "Grova is a revolutionary financial super-app designed for Africa's underbanked populations. We offer a triple wallet system supporting fiat currencies, cryptocurrencies, and community credits. Our platform works offline using Bluetooth peer-to-peer transfers and mesh networks, ensuring financial access even in remote areas. We also provide AI-powered financial coaching, banking integration with major African institutions, investment platforms, insert here and comprehensive security features.",
+        "Grova is a revolutionary financial super-app designed for Africa's underbanked populations. We offer a triple wallet system supporting fiat currencies, cryptocurrencies, and community credits. Our platform works offline using Bluetooth peer-to-peer transfers and mesh networks, ensuring financial access even in remote areas. We also provide AI-powered financial coaching, banking integration with major African institutions, investment platforms, and comprehensive security features.",
       )
     }
   }
@@ -519,9 +518,6 @@ export default function GrovaLanding() {
 
   return (
     <div className="min-h-screen bg-gray-50 relative overflow-x-hidden">
-      <Head>
-        <meta name="google-site-verification" content="OKBSO_cbVMIHl3iGmDKz5LT3adpqWfhxS8xRb8pa3rE" />
-      </Head>
       {/* Voice Assistant Button */}
       <div className="fixed bottom-6 right-6 z-50 animate-fade-in-up animation-delay-1000">
         <Button
