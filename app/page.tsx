@@ -507,7 +507,7 @@ export default function GrovaLanding() {
     {
       question: "What is the Founders Investor Room and how does it work?",
       answer:
-        "The Founders Investor Room is Africa's most comprehensive startup funding platform. Entrepreneurs can submit business ideas with video pitches, access business plan templates and financial modeling tools, and get matched with verified investors including angel investors, venture capital firms, and development finance institutions. The platform also enables community crowdfunding, allowing ordinary Africans to invest in local startups. We provide mentorship programs, market research tools, competitive analysis, and ongoing business development support. The platform has already facilitated over $50 million in startup funding across Africa.",
+        "The Founders Investor Room is Africa's most comprehensive startup funding platform. Entrepreneurs can submit business ideas with video pitches, access business plan templates and financial modeling tools, and get matched with verified investors including angel investors, venture capital firms, and development finance institutions. The platform also enables community crowdfunding, allowing ordinary Africans to invest in local startups. We provide mentorship programs, market research tools, competitive analysis, and ongoing business development support.",
     },
     {
       question: "How does Grova's Community Treasury modernize traditional savings groups?",

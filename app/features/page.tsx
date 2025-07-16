@@ -51,7 +51,7 @@ export default function FeaturesPage() {
     setIsVoiceEnabled(!isVoiceEnabled)
     if (!isVoiceEnabled) {
       speak(
-        "Voice assistant activated on Features page. You can learn about our triple wallet system, offline technology, AI coaching, and advanced tools.",
+        "Voice assistant activated on Features page. You can learn about our triple wallet system, offline technology, AI coaching, and advanced tools."
       )
     }
   }
@@ -107,11 +107,11 @@ export default function FeaturesPage() {
         "Intelligent transaction queuing system that automatically syncs all offline transactions when connectivity returns",
         "Offline QR code generation and processing for merchant payments and peer-to-peer transfers",
         "Local data encryption and secure storage ensuring transaction integrity even during extended offline periods",
-        "Emergency transaction capabilities for critical financial needs during network outages or natural disasters",
+        "Emergency transaction capabilities for critical financial needs during network-outages or natural disasters",
       ],
       detailedInfo: {
         overview:
-          "Grova's Offline-First Technology represents a paradigm shift in mobile financial services, specifically engineered to serve Africa's diverse connectivity landscape. This groundbreaking system ensures that financial services remain accessible even in areas with poor or no internet connectivity, addressing one of the biggest barriers to financial inclusion across the continent.",
+          "Grova's Offline-First Technology represents a paradigm shift in mobile financial services, specifically engineered to serve Africa's diverse connectivity landscape. This groundbreaking system ensures that financial financial services remain accessible even in areas with poor or no internet connectivity, addressing one of the biggest barriers to financial inclusion across the continent.",
         technicalSpecs:
           "Utilizes advanced mesh networking protocols with end-to-end encryption. Supports up to 50 devices in a single mesh network with automatic relay capabilities. Transaction data is compressed and optimized for minimal bandwidth usage when syncing.",
         impact:
@@ -279,7 +279,7 @@ export default function FeaturesPage() {
         <div className="fixed top-20 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-in-right">
           <div className="flex items-center space-x-2">
             <CheckCircle className="h-5 w-5" />
-            <span>{notification}</span>
+            <span className="text-sm">{notification}</span>
           </div>
         </div>
       )}
@@ -288,8 +288,8 @@ export default function FeaturesPage() {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto neomorphism">
           <DialogHeader>
-            <DialogTitle className="text-xl font-black text-gray-900 flex items-center gap-3">
-              {selectedFeature?.icon && React.cloneElement(selectedFeature.icon, { className: "h-6 w-6" })}
+            <DialogTitle className="text-2xl font-black text-gray-900 flex items-center gap-3">
+              {selectedFeature?.icon}
               {selectedFeature?.title}
             </DialogTitle>
             <DialogDescription className="text-sm text-gray-600">{selectedFeature?.description}</DialogDescription>
@@ -298,18 +298,18 @@ export default function FeaturesPage() {
           {selectedFeature?.detailedInfo && (
             <div className="space-y-6 mt-6">
               <div>
-                <h3 className="text-base font-bold text-gray-900 mb-3">Overview</h3>
-                <p className="text-gray-700 leading-relaxed text-sm">{selectedFeature.detailedInfo.overview}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Overview</h3>
+                <p className="text-sm text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.overview}</p>
               </div>
 
               {selectedFeature.details && (
                 <div>
-                  <h3 className="text-base font-bold text-gray-900 mb-3">Key Features</h3>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">Key Features</h3>
                   <ul className="space-y-2">
                     {selectedFeature.details.map((detail: string, index: number) => (
                       <li key={index} className="flex items-start gap-3">
                         <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{detail}</span>
+                        <span className="text-sm text-gray-700">{detail}</span>
                       </li>
                     ))}
                   </ul>
@@ -318,15 +318,15 @@ export default function FeaturesPage() {
 
               {selectedFeature.detailedInfo.technicalSpecs && (
                 <div>
-                  <h3 className="text-base font-bold text-gray-900 mb-3">Technical Specifications</h3>
-                  <p className="text-gray-700 leading-relaxed text-sm">{selectedFeature.detailedInfo.technicalSpecs}</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">Technical Specifications</h3>
+                  <p className="text-sm text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.technicalSpecs}</p>
                 </div>
               )}
 
               {selectedFeature.detailedInfo.impact && (
                 <div>
-                  <h3 className="text-base font-bold text-gray-900 mb-3">Impact</h3>
-                  <p className="text-gray-700 leading-relaxed text-sm">{selectedFeature.detailedInfo.impact}</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">Impact</h3>
+                  <p className="text-sm text-gray-700 leading-relaxed">{selectedFeature.detailedInfo.impact}</p>
                 </div>
               )}
             </div>
@@ -356,7 +356,7 @@ export default function FeaturesPage() {
               <div className="w-8 h-8 bg-blue-500 rounded-xl neomorphism-inset flex items-center justify-center">
                 <Wallet className="h-4 w-4 text-white" />
               </div>
-              <span className="text-xl font-black text-gray-900" style={{ fontFamily: "Lufga, sans-serif" }}>
+              <span className="text-lg font-black text-gray-900" style={{ fontFamily: "Lufga, sans-serif" }}>
                 Grova
               </span>
             </Link>
@@ -410,7 +410,7 @@ export default function FeaturesPage() {
                     {feature.title}
                   </Badge>
                   <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">{feature.title}</h2>
-                  <p className="text-lg text-gray-600 mb-6">{feature.description}</p>
+                  <p className="text-sm text-gray-600 mb-6">{feature.description}</p>
 
                   <div className="space-y-4 mb-6">
                     {feature.details.map((detail, detailIndex) => (
@@ -420,7 +420,7 @@ export default function FeaturesPage() {
                         >
                           <CheckCircle className={`h-4 w-4 ${feature.textColor}`} />
                         </div>
-                        <p className="text-gray-600 text-sm">{detail}</p>
+                        <p className="text-sm text-gray-600">{detail}</p>
                       </div>
                     ))}
                   </div>
@@ -453,7 +453,7 @@ export default function FeaturesPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12 animate-fade-in-up">
             <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">Advanced Financial Tools</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-sm text-gray-600 max-w-3xl mx-auto">
               Professional-grade tools for comprehensive financial management and analysis, specifically designed for
               African markets and economic conditions. These advanced features provide institutional-level capabilities
               while remaining accessible to all users.
@@ -497,7 +497,7 @@ export default function FeaturesPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center animate-fade-in-up">
             <div>
               <h2 className="text-xl lg:text-2xl font-black text-gray-900 mb-4">Built for African Professionals</h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-sm text-gray-600 mb-6">
                 From corporate executives in Lagos to entrepreneurs in Nairobi, from financial advisors in Cape Town to
                 small business owners in Accra, Grova provides the sophisticated tools needed for modern financial
                 management across Africa's growing and diverse economy. Our platform serves professionals at every level
@@ -529,14 +529,14 @@ export default function FeaturesPage() {
       <section className="py-16 bg-gradient-to-r from-blue-500 to-orange-500 text-white">
         <div className="container mx-auto px-4 lg:px-8 text-center animate-fade-in-up">
           <h2 className="text-xl lg:text-2xl font-black mb-4">Experience These Revolutionary Features Today</h2>
-          <p className="text-lg mb-6 max-w-2xl mx-auto opacity-90">
+          <p className="text-sm mb-6 max-w-2xl mx-auto opacity-90">
             Download Grova and discover how our revolutionary features including triple wallet system, offline-first
             technology, AI financial coaching, and advanced analytics can transform your financial life and empower your
             economic journey across Africa.
           </p>
           <Button
             size="lg"
-            className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-base font-semibold"
+            className="neomorphism bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-sm font-semibold"
             onClick={handleDownload}
           >
             <Download className="mr-2 h-5 w-5" />

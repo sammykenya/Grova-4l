@@ -90,25 +90,25 @@ export default function AboutPage() {
       year: "2025",
       title: "Grova Founded",
       description: "Established with a vision to transform African financial services",
-      icon: <Rocket className="h-5 w-5" />,
+      icon: <Rocket className="h-5 w-5" />,  
     },
     {
       year: "2025",
       title: "Technology Development",
-      description: "Developed revolutionary offline-first technology and AI financial coaching",
-      icon: <Brain className="h-5 w-5" />,
+      description: "Developing revolutionary offline-first technology and AI financial coaching",
+      icon: <Brain className="h-5 w-5" />,  
     },
     {
       year: "2026",
       title: "Banking Partnerships",
-      description: "Secured partnerships with major African banks and financial institutions",
-      icon: <Building2 className="h-5 w-5" />,
+      description: "Securing partnerships with major African banks and financial institutions",
+      icon: <Building2 className="h-5 w-5" />,  
     },
     {
       year: "2027",
       title: "Continental Launch",
       description: "Launching across all 54 African countries with comprehensive services",
-      icon: <Globe className="h-5 w-5" />,
+      icon: <Globe className="h-5 w-5" />,  
     },
   ]
 
@@ -118,6 +118,34 @@ export default function AboutPage() {
     { number: "54", label: "African Countries", icon: <Globe className="h-5 w-5" /> },
     { number: "10K+", label: "Active Users", icon: <Users className="h-5 w-5" /> },
     { number: "$2M+", label: "Transactions Processed", icon: <TrendingUp className="h-5 w-5" /> },
+  ]
+
+  // Contact methods
+  const contactMethods = [
+    {
+      icon: <Mail className="h-4 w-4" />,
+      title: "Email Us",
+      description: "Get in touch for partnerships and inquiries",
+      contact: "sammywinter01@gmail.com",
+      bg: "bg-blue-500",
+      textColor: "text-white",
+    },
+    {
+      icon: <Phone className="h-4 w-4" />,
+      title: "Call Us",
+      description: "Speak directly with our team",
+      contact: "+254 711 129204",
+      bg: "bg-orange-500",
+      textColor: "text-black",
+    },
+    {
+      icon: <MapPin className="h-4 w-4" />,
+      title: "Visit Us",
+      description: "Our headquarters in Nairobi, Kenya",
+      contact: "Nairobi, Kenya",
+      bg: "bg-blue-500",
+      textColor: "text-white",
+    },
   ]
 
   return (
@@ -342,22 +370,28 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                name: "Sarah Mwangi",
+                name: "Brian Nailer",
                 role: "Chief Executive Officer",
                 image: "/images/leadership-team.jpg",
-                background: "Former VP at Equity Bank, 15+ years in African banking",
+                background: "RM - I&M Bank, 8+ years in African banking",
               },
               {
-                name: "David Ochieng",
+                name: "Sammy Winterfildt",
                 role: "Chief Technology Officer",
                 image: "/images/technology-team.jpg",
-                background: "Ex-Google engineer, blockchain and AI specialist",
+                background: "Creative and Software Engenner, blockchain and AI specialist",
+              },
+               {
+                name: "Teddy Omondi",
+                role: "Chief Operations Officer",
+                image: "/images/professional.jpg",
+                background: "Creative and IT expert,",
               },
               {
-                name: "Amina Hassan",
+                name: "Fidel Chris",
                 role: "Chief Financial Officer",
                 image: "/images/professional.jpg",
-                background: "Former McKinsey partner, African financial markets expert",
+                background: "Former Solv Kenya partner, African financial markets expert",
               },
             ].map((leader, index) => (
               <Card
@@ -404,32 +438,7 @@ export default function AboutPage() {
               </p>
 
               <div className="space-y-4">
-                {[
-                  {
-                    icon: Mail,
-                    title: "Email Us",
-                    description: "Get in touch for partnerships and inquiries",
-                    contact: "sammywinter01@gmail.com",
-                    bg: "bg-blue-500",
-                    textColor: "text-white",
-                  },
-                  {
-                    icon: Phone,
-                    title: "Call Us",
-                    description: "Speak directly with our team",
-                    contact: "+254 711 129204",
-                    bg: "bg-orange-500",
-                    textColor: "text-black",
-                  },
-                  {
-                    icon: MapPin,
-                    title: "Visit Us",
-                    description: "Our headquarters in Nairobi, Kenya",
-                    contact: "Nairobi, Kenya",
-                    bg: "bg-blue-500",
-                    textColor: "text-white",
-                  },
-                ].map((contact, index) => (
+                {contactMethods.map((contact, index) => (
                   <Card
                     key={index}
                     className={`neomorphism border-0 ${contact.bg} ${contact.textColor} text-center hover:scale-105 transition-all duration-300 shadow-xl cursor-pointer`}
@@ -443,13 +452,15 @@ export default function AboutPage() {
                       }
                     }}
                   >
-                    <div className="w-8 h-8 bg-blue-500 rounded-lg neomorphism flex items-center justify-center text-white">
-                      {contact.icon}
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-500">{contact.title}</div>
-                      <div className="text-sm font-medium text-gray-900">{contact.description}</div>
-                      <div className="text-sm font-medium text-gray-900">{contact.contact}</div>
+                    <div className="flex items-center justify-center p-4">
+                      <div className="w-8 h-8 bg-white rounded-lg neomorphism flex items-center justify-center text-blue-500">
+                        {contact.icon}
+                      </div>
+                      <div className="ml-4 text-left">
+                        <div className="text-xs font-medium">{contact.title}</div>
+                        <div className="text-sm">{contact.description}</div>
+                        <div className="text-sm font-medium">{contact.contact}</div>
+                      </div>
                     </div>
                   </Card>
                 ))}
