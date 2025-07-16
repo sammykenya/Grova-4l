@@ -4,7 +4,6 @@ import React from "react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import Head from "next/head" // Added for meta tag management
 import {
   Download,
   Smartphone,
@@ -46,7 +45,7 @@ export default function GrovaLanding() {
   const [activeSection, setActiveSection] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [notification, setNotification] = useState("")
-  const [selectedFeature, setSelectedFeature] = useState(null)
+  const [selectedFeature, setSelectedFeature] = useState<any>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Voice Assistant States
@@ -54,23 +53,23 @@ export default function GrovaLanding() {
   const [isListening, setIsListening] = useState(false)
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [voiceText, setVoiceText] = useState("")
-  const [recognition, setRecognition] = useState(null)
+  const [recognition, setRecognition] = useState<any>(null)
 
   // Initialize Voice Assistant
   useEffect(() => {
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       // Initialize speech recognition
-      const SpeechRecognition = (window).SpeechRecognition || (window).webkitSpeechRecognition
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
       if (SpeechRecognition) {
         const recognitionInstance = new SpeechRecognition()
         recognitionInstance.continuous = true
         recognitionInstance.interimResults = true
         recognitionInstance.lang = "en-US"
 
-        recognitionInstance.onresult = (event) => {
+        recognitionInstance.onresult = (event: any) => {
           const transcript = Array.from(event.results)
-            .map((result) => result[0])
-            .map((result) => result.transcript)
+            .map((result: any) => result[0])
+            .map((result: any) => result.transcript)
             .join("")
 
           setVoiceText(transcript)
@@ -81,7 +80,7 @@ export default function GrovaLanding() {
           setIsListening(false)
         }
 
-        recognitionInstance.onerror = (event) => {
+        recognitionInstance.onerror = (event: any) => {
           console.error("Speech recognition error:", event.error)
           setIsListening(false)
         }
@@ -113,7 +112,7 @@ export default function GrovaLanding() {
   }, [])
 
   // Voice Assistant Functions
-  const speak = (text) => {
+  const speak = (text: string) => {
     if ("speechSynthesis" in window) {
       setIsSpeaking(true)
       const utterance = new SpeechSynthesisUtterance(text)
@@ -139,7 +138,7 @@ export default function GrovaLanding() {
     }
   }
 
-  const handleVoiceCommand = (command) => {
+  const handleVoiceCommand = (command: string) => {
     const lowerCommand = command.toLowerCase()
 
     if (lowerCommand.includes("download") || lowerCommand.includes("get app")) {
@@ -188,7 +187,7 @@ export default function GrovaLanding() {
   }, [])
 
   // Smooth scroll to section
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
@@ -197,7 +196,7 @@ export default function GrovaLanding() {
   }
 
   // Handle download button clicks
-  const handleDownload = (platform) => {
+  const handleDownload = (platform: string) => {
     setIsLoading(true)
     setTimeout(() => {
       setIsLoading(false)
@@ -223,7 +222,7 @@ export default function GrovaLanding() {
   }
 
   // Handle Learn More functionality
-  const handleLearnMore = (feature) => {
+  const handleLearnMore = (feature: any) => {
     setSelectedFeature(feature)
     setIsModalOpen(true)
     if (isVoiceEnabled) {
@@ -320,7 +319,7 @@ export default function GrovaLanding() {
           "Supports wealth building strategies tailored to African markets",
         ],
         technicalSpecs:
-          "Built onayoffs (Truncated due to character limit - please let me know if you need the rest) ",
+          "Built on advanced machine learning models with continuous learning capabilities. Processes over 1 million data points daily to improve recommendations. Features real-time market analysis and predictive modeling for investment suggestions.",
       },
     },
     {
@@ -519,9 +518,6 @@ export default function GrovaLanding() {
 
   return (
     <div className="min-h-screen bg-gray-50 relative overflow-x-hidden">
-      <Head>
-        <meta name="google-site-verification" content="OKBSO_cbVMIHl3iGmDKz5LT3adpqWfhxS8xRb8pa3rE" />
-      </Head>
       {/* Voice Assistant Button */}
       <div className="fixed bottom-6 right-6 z-50 animate-fade-in-up animation-delay-1000">
         <Button
@@ -614,7 +610,7 @@ export default function GrovaLanding() {
                 <div className="animate-fade-in-up animation-delay-200">
                   <h3 className="text-xl font-bold text-gray-900 mb-3 font-heading">Key Features</h3>
                   <ul className="space-y-2">
-                    {selectedFeature.detailedInfo.features.map((feature, index) => (
+                    {selectedFeature.detailedInfo.features.map((feature: string, index: number) => (
                       <li
                         key={index}
                         className="flex items-start gap-3 animate-fade-in-left"
@@ -632,7 +628,7 @@ export default function GrovaLanding() {
                 <div className="animate-fade-in-up animation-delay-400">
                   <h3 className="text-xl font-bold text-gray-900 mb-3 font-heading">Benefits</h3>
                   <ul className="space-y-2">
-                    {selectedFeature.detailedInfo.benefits.map((benefit, index) => (
+                    {selectedFeature.detailedInfo.benefits.map((benefit: string, index: number) => (
                       <li
                         key={index}
                         className="flex items-start gap-3 animate-fade-in-right"
